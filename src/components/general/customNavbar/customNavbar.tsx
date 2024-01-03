@@ -14,7 +14,7 @@ const optionsNavbar = [
 
 export const CustomNavbar = () => {
   return (
-    <Navbar>
+    <Navbar className="container" shouldHideOnScroll>
       <NavbarBrand>NextUI</NavbarBrand>
       <NavbarContent>
         {optionsNavbar.map((option) => (
