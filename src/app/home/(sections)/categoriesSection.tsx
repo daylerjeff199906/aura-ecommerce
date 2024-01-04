@@ -1,4 +1,4 @@
-import { Image } from "@nextui-org/react";
+import { Image, Divider } from "@nextui-org/react";
 
 const dataCategories = [
   {
@@ -43,7 +43,10 @@ export const CategoriesSection = () => {
   return (
     <>
       <section className="container">
-        <h1 className="title-home">Nuestras categorias</h1>
+        <div className="space-y-4 pb-6">
+          <h1 className="title-home">Productos por categorias</h1>
+          <Divider />
+        </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4">
           {dataCategories.map((item) => (
             <div key={item.id}>

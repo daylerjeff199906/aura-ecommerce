@@ -3,6 +3,7 @@ import { CardProducts } from "@/components";
 import img from "@/assets/images/img_test.webp";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import { Button, Divider } from "@nextui-org/react";
 
 const data = [
   {
@@ -78,7 +79,13 @@ const responsive = {
 export const RecentProducts = () => {
   return (
     <section className="container">
-      <h1 className="title-home">Productos recientes</h1>
+      <div className="space-y-4 pb-6">
+        <h1 className="title-home">Productos recientes</h1>
+        <Divider />
+        <Button size="sm" variant="bordered">
+          Ver todos los productos
+        </Button>
+      </div>
       <Carousel
         responsive={responsive}
         infinite={true}

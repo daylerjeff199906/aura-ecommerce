@@ -1,11 +1,9 @@
 "use client";
-import { Button, Card, Image } from "@nextui-org/react";
+import { Image } from "@nextui-org/react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import img_1 from "@/assets/images/manos_collar.webp";
-import img_2 from "@/assets/images/manos_pulseras.webp";
-import img_3 from "@/assets/images/pulsera_modelo.webp";
-import bg_img from "@/assets/images/brazaletes-con-manos.webp";
+import img_2 from "@/assets/images/banner_1.webp";
+import img_3 from "@/assets/images/banner_2.webp";
 
 const responsive = {
   desktop: {
@@ -24,12 +22,6 @@ const responsive = {
 
 const dataCarousel = [
   {
-    id: 1,
-    title: "Nuevos productos",
-    image: bg_img.src,
-    alt: "manos_collar",
-  },
-  {
     id: 2,
     title: "Nuevos productos",
     image: img_2.src,
@@ -45,7 +37,7 @@ const dataCarousel = [
 
 export const Banner = () => {
   return (
-    <div className="h-screen max-h-[40rem]  w-full">
+    <div className="sm:h-screen max-h-[40rem]  w-full">
       <Carousel
         responsive={responsive}
         className="w-full h-full max-h-[40rem]"
