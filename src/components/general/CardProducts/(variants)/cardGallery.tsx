@@ -1,3 +1,9 @@
+import { Card } from "@nextui-org/react";
+
 export const CardGallery = () => {
-  return <></>;
+  return (
+    <>
+      <Card></Card>
+    </>
+  );
 };

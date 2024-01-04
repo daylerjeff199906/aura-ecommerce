@@ -1,9 +1,9 @@
 import { CardGallery, CardList } from "./(variants)";
 
 interface CardProductsProps {
-  variant: string;
+  variant?: "gallery" | "list";
 }
 
 export const CardProducts = ({ variant }: CardProductsProps) => {
-  return <></>;
+  return <>{variant !== "list" ? <CardGallery /> : <CardList />}</>;
 };
