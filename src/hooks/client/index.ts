@@ -1,3 +1,4 @@
 import { useDataSlider } from "./useBannerHome";
+import { useDataCategory } from "./useCategories";
 
-export { useDataSlider };
+export { useDataSlider, useDataCategory };

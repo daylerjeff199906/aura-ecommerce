@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import { useEffect } from "react";
 import { Image } from "@nextui-org/react";
@@ -69,7 +70,7 @@ export const Banner = () => {
         </Carousel>
       ) : (
         <div className="w-full h-full flex justify-center items-center">
-          <p className="text-2xl font-bold">No hay imagenes para mostrar</p>
+          <p className="text-2xl font-bold">Espere un momento ...</p>
         </div>
       )}
     </div>
