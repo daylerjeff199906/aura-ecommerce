@@ -18,6 +18,8 @@ export const CardGallery = ({ data }: { data?: IProducts }) => {
     <Card
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
+      shadow="none"
+      className="border border-zinc-100"
     >
       <div className="relative w-full">
         <Chip
