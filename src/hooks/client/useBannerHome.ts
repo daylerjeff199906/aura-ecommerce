@@ -1,16 +1,29 @@
 import { useState } from "react";
 import { db } from "@/firebase/firebase";
 import { collection, getDocs, DocumentData } from "firebase/firestore";
+import { ISliders } from "@/types";
 
-export function GetDataSlider() {
+const convertDataToISliders = (data: DocumentData[]) => {
+  return data.map((slider) => {
+    const { image, name, tag } = slider;
+    return {
+      image,
+      name,
+      tag,
+    };
+  });
+};
+
+export function useDataSlider() {
   const [loading, setLoading] = useState<boolean>(true);
-  const [sliders, setSliders] = useState<DocumentData[] | null>(null);
+  const [sliders, setSliders] = useState<ISliders[] | null>(null);
 
   const getSlider = async () => {
+    setLoading(true);
     try {
-      const querySnapshot = await getDocs(collection(db, "sliders"));
+      const querySnapshot = await getDocs(collection(db, "slider"));
       const sliders = querySnapshot.docs.map((doc) => doc.data());
-      setSliders(sliders);
+      setSliders(convertDataToISliders(sliders));
       setLoading(false);
     } catch (error) {
       console.log(error);
