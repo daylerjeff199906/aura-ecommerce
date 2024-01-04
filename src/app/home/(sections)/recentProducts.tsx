@@ -1,4 +1,5 @@
 import { CardProducts } from "@/components";
+import img from "@/assets/images/img_test.webp";
 
 export const RecentProducts = () => {
   return (
