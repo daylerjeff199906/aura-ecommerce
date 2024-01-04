@@ -1,54 +1,68 @@
-import { Button, Image } from "@nextui-org/react";
+"use client";
+import { Button, Card, Image } from "@nextui-org/react";
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
 import img_1 from "@/assets/images/manos_collar.webp";
 import img_2 from "@/assets/images/manos_pulseras.webp";
 import img_3 from "@/assets/images/pulsera_modelo.webp";
+import bg_img from "@/assets/images/brazaletes-con-manos.webp";
+
+const responsive = {
+  desktop: {
+    breakpoint: { max: 5000, min: 1024 },
+    items: 1,
+  },
+  tablet: {
+    breakpoint: { max: 1024, min: 640 },
+    items: 1,
+  },
+  mobile: {
+    breakpoint: { max: 640, min: 0 },
+    items: 1,
+  },
+};
+
+const dataCarousel = [
+  {
+    id: 1,
+    title: "Nuevos productos",
+    image: bg_img.src,
+    alt: "manos_collar",
+  },
+  {
+    id: 2,
+    title: "Nuevos productos",
+    image: img_2.src,
+    alt: "manos_pulseras",
+  },
+  {
+    id: 3,
+    title: "Nuevos productos",
+    image: img_3.src,
+    alt: "pulsera_modelo",
+  },
+];
 
 export const Banner = () => {
   return (
-    <div className="container grid grid-cols-1 sm:grid-cols-2 gap-2 h-screen xl:max-h-[6  0rem] items-center">
-      <div className="space-y-4">
-        <h3>YOUR IMAGINATION, OUR EXPERTISE</h3>
-        <h2 className="text-6xl font-bold">
-          Quality and convenience, every time.
-        </h2>
-        <p>
-          Ready to make your mark with custom printing? Welcome to our store -
-          where imagination meets print.
-        </p>
-        <Button radius="none" color="secondary">
-          Ver productos
-        </Button>
-      </div>
-      <div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div className="grid gap-4 items-center justify-end">
-            <Image
-              className="hidden sm:block w-full rounded-md sm:h-96 lg:h-80 xl:h-80 xl:w-72 object-cover"
-              src={img_1.src}
-              alt="pulseras"
-              removeWrapper={true}
-            />
-          </div>
-          <div className="grid gap-4">
-            <div>
-              <Image
-                className="w-full rounded-md sm:h-96 lg:h-80 xl:h-64 xl:w-72 object-cover"
-                src={img_2.src}
-                alt="manos con pulseras"
-                removeWrapper={true}
-              />
-            </div>
-            <div>
-              <Image
-                className="w-full rounded-md sm:h-96 lg:h-80 xl:h-64 xl:w-72 object-cover"
-                src={img_3.src}
-                alt="Graduado de la universidad"
-                removeWrapper={true}
-              />
-            </div>
-          </div>
-        </div>
-      </div>
+    <div className="h-screen max-h-[40rem]  w-full">
+      <Carousel
+        responsive={responsive}
+        className="w-full h-full max-h-[40rem]"
+        infinite={true}
+        autoPlay={true}
+      >
+        {dataCarousel.map((item, index) => (
+          <Image
+            key={index}
+            src={item?.image}
+            alt={item?.alt}
+            removeWrapper={true}
+            radius="none"
+            className="h-full object-cover w-full"
+          />
+        ))}
+      </Carousel>
     </div>
   );
 };

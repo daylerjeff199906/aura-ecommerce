@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+section {
+  padding-top: 5rem;
+  padding-bottom: 2.5rem;
+}
+
 /* :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
