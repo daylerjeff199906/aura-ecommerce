@@ -73,7 +73,7 @@ export const CategoriesSection = () => {
                         radius="none"
                         removeWrapper
                       />
-                      <h2 className="flex justify-center uppercase text-lg py-2">
+                      <h2 className="flex justify-center uppercase text-lg py-2 text-stone-600">
                         {item.name}
                       </h2>
                     </div>

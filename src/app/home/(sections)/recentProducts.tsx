@@ -2,54 +2,10 @@
 "use client";
 import { useEffect } from "react";
 import { CardProducts } from "@/components";
-import img from "@/assets/images/img_test.webp";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { Button, Divider } from "@nextui-org/react";
 import { useDataProducts } from "@/hooks";
-
-const data = [
-  {
-    id: 1,
-    image: img.src,
-    name: "Nombre del producto",
-    category: "Categoria",
-    price: 100,
-    discount: 10,
-  },
-  {
-    id: 2,
-    image: img.src,
-    name: "Nombre del producto",
-    category: "Categoria",
-    price: 100,
-    discount: 10,
-  },
-  {
-    id: 3,
-    image: img.src,
-    name: "Nombre del producto",
-    category: "Categoria",
-    price: 100,
-    discount: 10,
-  },
-  {
-    id: 4,
-    image: img.src,
-    name: "Nombre del producto",
-    category: "Categoria",
-    price: 100,
-    discount: 10,
-  },
-  {
-    id: 5,
-    image: img.src,
-    name: "Nombre del producto",
-    category: "Categoria",
-    price: 100,
-    discount: 10,
-  },
-];
 
 const responsive = {
   mediumDesktop: {
@@ -95,6 +51,11 @@ export const RecentProducts = () => {
           Ver todos los productos
         </Button>
       </div>
+      {loading && (
+        <div className="w-full h-full flex justify-center items-center">
+          <p className="text-2xl font-bold">Espere un momento ...</p>
+        </div>
+      )}
       {products && (
         <Carousel
           responsive={responsive}
@@ -102,7 +63,7 @@ export const RecentProducts = () => {
           autoPlay={true}
           partialVisible
         >
-          {products?.slice(0,10).map((item, index) => (
+          {products?.slice(0, 10).map((item, index) => (
             <div key={index} className="mr-4">
               <CardProducts data={item} />
             </div>
