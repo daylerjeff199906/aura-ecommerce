@@ -13,10 +13,10 @@ export const SearchSection = () => {
   return (
     <div className="bg-white pt-2">
       <div className="py-4 w-full">
-        <div className="flex w-full gap-2 sm:gap-6 items-center container max-w-7xl">
+        <div className="flex w-full gap-2 sm:gap-6 items-center container">
           <div className="hidden lg:block w-full lg:max-w-[14rem] xl:max-w-[16rem]">
-            <h1 className="text-sm font-bold sm:text-lg text-zinc-600 w-full">
-              Facilita tu búsqueda
+            <h1 className="text-sm font-medium sm:text-lg text-zinc-600 w-full">
+              Filtros
             </h1>
           </div>
           <div className="flex w-full gap-2 sm:gap-4 items-center">
@@ -40,8 +40,9 @@ export const SearchSection = () => {
                   // onClick={() => {
                   //   setFilters("type_list", "");
                   // }}
-                  color={isGallery === "" ? "primary" : "default"}
+                  color={isGallery === "" ? "danger" : "default"}
                   variant={isGallery !== "" ? "bordered" : undefined}
+                  radius="none"
                 >
                   Galeria
                 </Button>
@@ -50,8 +51,9 @@ export const SearchSection = () => {
                   // onClick={() => {
                   //   setFilters("type_list", "list");
                   // }}
-                  color={isGallery === "list" ? "primary" : "default"}
+                  color={isGallery === "list" ? "danger" : "default"}
                   variant={isGallery !== "list" ? "bordered" : undefined}
+                  radius="none"
                 >
                   Lista
                 </Button>
@@ -62,8 +64,9 @@ export const SearchSection = () => {
                 <Button
                   startContent={<IconCategory size={16} />}
                   isIconOnly
-                  color={isGallery === "" ? "primary" : "default"}
+                  color={isGallery === "" ? "danger" : "default"}
                   variant={isGallery !== "" ? "bordered" : undefined}
+                  radius="none"
                   // onClick={() => {
                   //   setFilters("type_list", "");
                   // }}
@@ -71,8 +74,9 @@ export const SearchSection = () => {
                 <Button
                   startContent={<IconListDetails size={16} />}
                   isIconOnly
-                  color={isGallery === "list" ? "primary" : "default"}
+                  color={isGallery === "list" ? "danger" : "default"}
                   variant={isGallery !== "list" ? "bordered" : undefined}
+                  radius="none"
                   // onClick={() => {
                   //   setFilters("type_list", "list");
                   // }}
