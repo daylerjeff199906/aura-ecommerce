@@ -4,7 +4,7 @@ import { collection, getDocs, DocumentData } from "firebase/firestore";
 import { ICategory } from "@/types";
 
 const convertDataToICategory = (data: DocumentData[]) => {
-  return data.map((category) => {
+  return data?.map((category) => {
     const { name, image } = category;
     return {
       name,

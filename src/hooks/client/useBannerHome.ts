@@ -4,7 +4,7 @@ import { collection, getDocs, DocumentData } from "firebase/firestore";
 import { ISliders } from "@/types";
 
 const convertDataToISliders = (data: DocumentData[]) => {
-  return data.map((slider) => {
+  return data?.map((slider) => {
     const { image, name, tag } = slider;
     return {
       image,

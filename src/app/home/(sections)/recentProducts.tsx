@@ -1,9 +1,12 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
+import { useEffect } from "react";
 import { CardProducts } from "@/components";
 import img from "@/assets/images/img_test.webp";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { Button, Divider } from "@nextui-org/react";
+import { useDataProducts } from "@/hooks";
 
 const data = [
   {
@@ -77,6 +80,12 @@ const responsive = {
 };
 
 export const RecentProducts = () => {
+  const { getProducts, products, loading } = useDataProducts();
+
+  useEffect(() => {
+    getProducts();
+  }, []);
+
   return (
     <section className="container">
       <div className="space-y-4 pb-6">
@@ -86,18 +95,20 @@ export const RecentProducts = () => {
           Ver todos los productos
         </Button>
       </div>
-      <Carousel
-        responsive={responsive}
-        infinite={true}
-        autoPlay={true}
-        partialVisible
-      >
-        {data.map((item, index) => (
-          <div key={index} className="mr-4">
-            <CardProducts data={item} />
-          </div>
-        ))}
-      </Carousel>
+      {products && (
+        <Carousel
+          responsive={responsive}
+          infinite={true}
+          autoPlay={true}
+          partialVisible
+        >
+          {products?.slice(0,10).map((item, index) => (
+            <div key={index} className="mr-4">
+              <CardProducts data={item} />
+            </div>
+          ))}
+        </Carousel>
+      )}
     </section>
   );
 };
