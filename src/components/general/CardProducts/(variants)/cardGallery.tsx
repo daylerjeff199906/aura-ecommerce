@@ -10,6 +10,7 @@ import {
 } from "@nextui-org/react";
 import { IProducts } from "@/types";
 import { IconHeartPlus, IconShoppingCartPlus } from "@tabler/icons-react";
+import Link from "next/link";
 
 export const CardGallery = ({ data }: { data?: IProducts }) => {
   const [isHover, setIsHover] = useState(false);
@@ -18,15 +19,19 @@ export const CardGallery = ({ data }: { data?: IProducts }) => {
     <Card
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
+      shadow="none"
+      className="border border-zinc-100"
     >
       <div className="relative w-full">
-        <Chip
-          className="absolute top-2 left-2 z-20 font-bold"
-          color="danger"
-          radius="sm"
-        >
-          En promoción
-        </Chip>
+        {data?.isOffer && (
+          <Chip
+            className="absolute top-2 left-2 z-20 font-bold"
+            color="danger"
+            radius="sm"
+          >
+            En promoción
+          </Chip>
+        )}
         <Image
           src={data?.image}
           alt="img_data"
@@ -49,7 +54,7 @@ export const CardGallery = ({ data }: { data?: IProducts }) => {
       </div>
       <CardBody>
         <p className="text-sm text-zinc-400">{data?.category}</p>
-        <h3 className="text-xl font-bold">{data?.name}</h3>
+        <h3 className="text-xl font-bold line-clamp-1">{data?.name}</h3>
         <p className="text-lg text-gray-500">
           {data?.discount ? (
             <>
@@ -70,6 +75,8 @@ export const CardGallery = ({ data }: { data?: IProducts }) => {
           }
           radius="none"
           fullWidth
+          as={Link}
+          href={`/productos/${data?.name}`}
         >
           Ver producto
         </Button>

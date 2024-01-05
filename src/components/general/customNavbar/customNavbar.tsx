@@ -10,7 +10,7 @@ import { IconShoppingCart, IconHeart } from "@tabler/icons-react";
 
 const optionsNavbar = [
   { name: "Home", href: "/", subItems: [] },
-  { name: "Catálogo", href: "/catalogo", subItems: [] },
+  { name: "Productos", href: "/productos", subItems: [] },
   { name: "Contáctanos", href: "/contact", subItems: [] },
 ];
 
@@ -21,9 +21,11 @@ const iconsOptions = [
 
 export const CustomNavbar = () => {
   return (
-    <Navbar className="container" shouldHideOnScroll>
+    <Navbar shouldHideOnScroll maxWidth="2xl" isBlurred={false}>
       <NavbarContent>
-        <NavbarBrand>NextUI</NavbarBrand>
+        <NavbarBrand>
+          <h1 className="font-bold text-3xl">Aurora</h1>
+        </NavbarBrand>
       </NavbarContent>
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
         {optionsNavbar.map((option) => (

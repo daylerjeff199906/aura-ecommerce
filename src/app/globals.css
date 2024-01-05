@@ -2,6 +2,26 @@
 @tailwind components;
 @tailwind utilities;
 
+section {
+  padding-top: 5rem;
+  padding-bottom: 2.5rem;
+}
+
+@media screen and (max-width: 768px) {
+  section {
+    padding-top: 2.5rem;
+    padding-bottom: 2rem;
+  }
+}
+
+.title-home {
+  font-size: 2.1rem;
+  /* font-weight: 700; */
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+  /* margin-bottom: 3rem; */
+}
+
 /* :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
