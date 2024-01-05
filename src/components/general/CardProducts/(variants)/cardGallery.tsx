@@ -10,6 +10,7 @@ import {
 } from "@nextui-org/react";
 import { IProducts } from "@/types";
 import { IconHeartPlus, IconShoppingCartPlus } from "@tabler/icons-react";
+import Link from "next/link";
 
 export const CardGallery = ({ data }: { data?: IProducts }) => {
   const [isHover, setIsHover] = useState(false);
@@ -74,6 +75,8 @@ export const CardGallery = ({ data }: { data?: IProducts }) => {
           }
           radius="none"
           fullWidth
+          as={Link}
+          href={`/productos/${data?.id}`}
         >
           Ver producto
         </Button>

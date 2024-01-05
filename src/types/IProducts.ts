@@ -1,5 +1,5 @@
 export interface IProducts {
-  id: number;
+  // id: number;
   name: string;
   price: number;
   image: string;
@@ -8,9 +8,9 @@ export interface IProducts {
   isOffer: boolean;
   // quantity: number;
   discount: number;
-  discountPrice?: number;
+  // discountPrice?: number;
   // total?: number;
   stock: number;
   createdAt: Date;
-  updatedAt: Date;
+  // updatedAt: Date;
 }

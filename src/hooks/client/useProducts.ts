@@ -14,6 +14,7 @@ const convertDataToIProducts = (data: DocumentData[]) => {
       discount,
       stock,
       isOffer,
+      createdAt,
     } = product;
     return {
       name: name,
@@ -21,9 +22,10 @@ const convertDataToIProducts = (data: DocumentData[]) => {
       image: image,
       isOffer: isOffer,
       description: description,
-    //   category: category,
+      category: "",
       discount: discount,
       stock: stock,
+      createdAt: createdAt,
     };
   });
 };
@@ -36,7 +38,7 @@ export function useDataProducts() {
     setLoading(true);
     try {
       const querySnapshot = await getDocs(collection(db, "products"));
-      const products = querySnapshot.docs.map((doc) => doc.data());
+      const products = querySnapshot?.docs?.map((doc) => doc.data());
       setProducts(convertDataToIProducts(products));
       setLoading(false);
     } catch (error) {
