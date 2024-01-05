@@ -11,7 +11,7 @@ export default function HomePage() {
       <RecentProducts />
       <AdvertisementSection />
       <CategoriesSection />
-      <StoreSection />
+      {/* <StoreSection /> */}
     </>
   );
 }

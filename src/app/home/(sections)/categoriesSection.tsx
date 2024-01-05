@@ -44,13 +44,11 @@ const dataCategories = [
 ];
 
 export const CategoriesSection = () => {
-  const { getCategory, categories } = useDataCategory();
+  const { getCategory, categories, loading } = useDataCategory();
 
   useEffect(() => {
     getCategory();
   }, []);
-
-  console.log(categories);
 
   return (
     <>
@@ -59,20 +57,29 @@ export const CategoriesSection = () => {
           <h1 className="title-home">Productos por categorias</h1>
           <Divider />
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4">
-          {categories && (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+          {loading ? (
+            <h1>Cargando...</h1>
+          ) : (
             <>
-              {categories.map((item, i) => (
-                <div key={i}>
-                  <Image
-                    src={item.image}
-                    alt={item.name}
-                    className="h-56 w-full"
-                    removeWrapper
-                  />
-                  <h2>{item.name}</h2>
-                </div>
-              ))}
+              {categories && (
+                <>
+                  {categories.map((item, i) => (
+                    <div key={i} className="hover:cursor-pointer">
+                      <Image
+                        src={item.image}
+                        alt={item.name}
+                        className="h-64 w-full"
+                        radius="none"
+                        removeWrapper
+                      />
+                      <h2 className="flex justify-center uppercase text-lg py-2">
+                        {item.name}
+                      </h2>
+                    </div>
+                  ))}
+                </>
+              )}
             </>
           )}
         </div>
