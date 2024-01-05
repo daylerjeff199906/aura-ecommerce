@@ -3,7 +3,7 @@ import img_store from "@/assets/images/store_section.webp";
 
 export const StoreSection = () => {
   return (
-    <section className="">
+    <section className="container">
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 items-center bg-black h-72 sm:mx-14">
         <Image
           src={img_store.src}
