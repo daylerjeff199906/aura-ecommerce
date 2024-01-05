@@ -21,7 +21,7 @@ const iconsOptions = [
 
 export const CustomNavbar = () => {
   return (
-    <Navbar shouldHideOnScroll maxWidth="2xl" isBlurred={false}>
+    <Navbar maxWidth="2xl" isBlurred={false}>
       <NavbarContent>
         <NavbarBrand>
           <h1 className="font-bold text-3xl">Aurora</h1>

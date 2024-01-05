@@ -1,3 +1,10 @@
+"use client";
+import { IndexPage } from "./(sections)/IndexPage";
+
 export default function ProductsPage() {
-  return <></>;
+  return (
+    <>
+      <IndexPage />
+    </>
+  );
 }

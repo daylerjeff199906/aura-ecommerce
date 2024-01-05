@@ -62,6 +62,7 @@ export const RecentProducts = () => {
           infinite={true}
           autoPlay={true}
           partialVisible
+          className="z-10"
         >
           {products?.slice(0, 10).map((item, index) => (
             <div key={index} className="mr-4">
