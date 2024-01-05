@@ -34,3 +34,5 @@ export const ProductsProvider = ({
     </ProductsContext.Provider>
   );
 };
+
+export const useProducts = () => useContext(ProductsContext);

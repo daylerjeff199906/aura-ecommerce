@@ -1,5 +1,5 @@
 "use client";
-import { ProductsProvider } from "@/providers/clients/productsProvider";
+import { ProductsProvider } from "@/providers";
 
 export default function StudentLayout({
   children,
