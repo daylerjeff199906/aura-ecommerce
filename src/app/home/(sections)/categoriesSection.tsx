@@ -1,4 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+"use client";
+import { useEffect } from "react";
 import { Image, Divider } from "@nextui-org/react";
+import { useDataCategory } from "@/hooks";
 
 const dataCategories = [
   {
@@ -40,6 +44,14 @@ const dataCategories = [
 ];
 
 export const CategoriesSection = () => {
+  const { getCategory, categories } = useDataCategory();
+
+  useEffect(() => {
+    getCategory();
+  }, []);
+
+  console.log(categories);
+
   return (
     <>
       <section className="container">
@@ -48,17 +60,21 @@ export const CategoriesSection = () => {
           <Divider />
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4">
-          {dataCategories.map((item) => (
-            <div key={item.id}>
-              <Image
-                src={item.img}
-                alt={item.name}
-                className="h-56 w-full"
-                removeWrapper
-              />
-              <h2>{item.name}</h2>
-            </div>
-          ))}
+          {categories && (
+            <>
+              {categories.map((item, i) => (
+                <div key={i}>
+                  <Image
+                    src={item.image}
+                    alt={item.name}
+                    className="h-56 w-full"
+                    removeWrapper
+                  />
+                  <h2>{item.name}</h2>
+                </div>
+              ))}
+            </>
+          )}
         </div>
       </section>
     </>

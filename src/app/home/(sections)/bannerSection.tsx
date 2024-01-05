@@ -4,8 +4,6 @@ import { useEffect } from "react";
 import { Image } from "@nextui-org/react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import img_2 from "@/assets/images/banner_1.webp";
-import img_3 from "@/assets/images/banner_2.webp";
 
 import { useDataSlider } from "@/hooks";
 
@@ -24,21 +22,6 @@ const responsive = {
   },
 };
 
-const dataCarousel = [
-  {
-    id: 2,
-    title: "Nuevos productos",
-    image: img_2.src,
-    alt: "manos_pulseras",
-  },
-  {
-    id: 3,
-    title: "Nuevos productos",
-    image: img_3.src,
-    alt: "pulsera_modelo",
-  },
-];
-
 export const Banner = () => {
   const { loading, getSlider, sliders } = useDataSlider();
 
@@ -46,7 +29,7 @@ export const Banner = () => {
     getSlider();
   }, []);
 
-  console.log(sliders);
+  // console.log(sliders);
 
   return (
     <div className="sm:h-screen max-h-[40rem]  w-full">

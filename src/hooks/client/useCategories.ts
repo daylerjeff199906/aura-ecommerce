@@ -20,7 +20,7 @@ export function useDataCategory() {
   const getCategory = async () => {
     setLoading(true);
     try {
-      const querySnapshot = await getDocs(collection(db, "category"));
+      const querySnapshot = await getDocs(collection(db, "categories"));
       const categories = querySnapshot.docs.map((doc) => doc.data());
       setCategories(convertDataToICategory(categories));
       setLoading(false);
