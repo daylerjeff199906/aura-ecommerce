@@ -1,8 +1,8 @@
 import { CardProducts } from "@/components";
-import { useProducts } from "@/providers";
+import { useLogicProducts } from "@/providers";
 
 export const ListSection = () => {
-  const { listProducts } = useProducts();
+  const { listProducts } = useLogicProducts();
   return (
     <>
       {listProducts && (

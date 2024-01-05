@@ -1,3 +1,3 @@
-import { useProducts, ProductsProvider } from "./productsProvider";
+import { useLogicProducts, ProductsProvider } from "./productsProvider";
 
-export { useProducts, ProductsProvider };
+export { useLogicProducts, ProductsProvider };

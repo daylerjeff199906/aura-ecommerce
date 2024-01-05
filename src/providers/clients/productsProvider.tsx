@@ -1,5 +1,4 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-"use client";
 import { createContext, useContext, useEffect, useState } from "react";
 import { useFilterFromUrl, useDataProducts } from "@/hooks";
 import { IProducts } from "@/types";
@@ -35,4 +34,4 @@ export const ProductsProvider = ({
   );
 };
 
-export const useProducts = () => useContext(ProductsContext);
+export const useLogicProducts = () => useContext(ProductsContext);
