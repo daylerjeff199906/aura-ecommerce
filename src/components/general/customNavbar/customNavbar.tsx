@@ -16,6 +16,7 @@ import { IconShoppingCart, IconHeart } from "@tabler/icons-react";
 const optionsNavbar = [
   { name: "Home", href: "/", subItems: [] },
   { name: "Productos", href: "/productos", subItems: [] },
+  { name: "Promociones", href: "/promociones", subItems: [] },
   { name: "Contáctanos", href: "/contact", subItems: [] },
 ];
 
