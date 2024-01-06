@@ -36,7 +36,7 @@ export const Banner = () => {
       {sliders ? (
         <Carousel
           responsive={responsive}
-          className="w-full h-full max-h-[40rem]"
+          className="w-full h-full max-h-[40rem] z-10"
           infinite={true}
           autoPlay={true}
         >
@@ -47,7 +47,7 @@ export const Banner = () => {
               alt={item?.name}
               removeWrapper={true}
               radius="none"
-              className="h-full object-cover w-full"
+              className="h-full object-cover w-full "
             />
           ))}
         </Carousel>

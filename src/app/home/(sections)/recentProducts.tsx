@@ -6,6 +6,7 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { Button, Divider } from "@nextui-org/react";
 import { useDataProducts } from "@/hooks";
+import Link from "next/link";
 
 const responsive = {
   mediumDesktop: {
@@ -47,7 +48,7 @@ export const RecentProducts = () => {
       <div className="space-y-4 pb-6">
         <h1 className="title-home">Productos recientes</h1>
         <Divider />
-        <Button size="sm" variant="bordered">
+        <Button size="sm" variant="bordered" as={Link} href="/productos">
           Ver todos los productos
         </Button>
       </div>
