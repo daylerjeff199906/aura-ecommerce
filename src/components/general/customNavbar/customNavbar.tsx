@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import {
+  Button,
   Navbar,
   NavbarBrand,
   NavbarContent,
@@ -9,9 +10,11 @@ import {
   Link,
   NavbarMenu,
   NavbarMenuItem,
+  Badge,
 } from "@nextui-org/react";
-
+import { useLogicShopCart } from "@/providers";
 import { IconShoppingCart, IconHeart } from "@tabler/icons-react";
+import { DrawerShopCart } from "..";
 
 const optionsNavbar = [
   { name: "Home", href: "/", subItems: [] },
@@ -20,13 +23,10 @@ const optionsNavbar = [
   { name: "Contáctanos", href: "/contact", subItems: [] },
 ];
 
-const iconsOptions = [
-  { name: "favoritos", href: "/", icon: <IconHeart /> },
-  { name: "carrito", href: "/", icon: <IconShoppingCart /> },
-];
-
 export const CustomNavbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const { listProducts, removeToCart } = useLogicShopCart();
 
   return (
     <div className="fixed z-50 top-0 right-0 left-0">
@@ -65,11 +65,21 @@ export const CustomNavbar = () => {
           ))}
         </NavbarContent>
         <NavbarContent justify="end">
-          {iconsOptions.map((option) => (
-            <NavbarItem key={option.name}>
-              <Link href={option.href}>{option.icon}</Link>
-            </NavbarItem>
-          ))}
+          <NavbarItem key="shopping-cart">
+            <Button
+              isIconOnly
+              variant="light"
+              onClick={() => setIsDrawerOpen(true)}
+            >
+              <Badge
+                color="danger"
+                content={listProducts?.length}
+                isInvisible={listProducts?.length === 0}
+              >
+                <IconShoppingCart />
+              </Badge>
+            </Button>
+          </NavbarItem>
         </NavbarContent>
 
         <NavbarMenu>
@@ -86,6 +96,12 @@ export const CustomNavbar = () => {
           ))}
         </NavbarMenu>
       </Navbar>
+      <DrawerShopCart
+        isOpen={isDrawerOpen}
+        setOpen={setIsDrawerOpen}
+        lisProducts={listProducts ?? []}
+        deleteProduct={removeToCart}
+      />
     </div>
   );
 };

@@ -21,14 +21,14 @@ export const DetailsSection = ({ id }: { id: string }) => {
         <div className="py-12 ">
           {isLoadImage === false && (
             <Skeleton className="animate-pulse">
-              <div className="sm:h-[32rem] lg:h-[48rem] sm:w-[30rem] lg:w-[38rem] rounded-lg bg-default-300"></div>
+              <div className="sm:h-[32rem] lg:h-[48rem] sm:w-[30rem] lg:w-[40rem] rounded-lg bg-default-300"></div>
             </Skeleton>
           )}
           <Image
             src={product?.image}
             alt="img_data"
             removeWrapper={true}
-            className={`object-cover sm:h-[32rem] lg:h-[48rem] lg:w-[64rem] ${
+            className={`object-cover sm:h-[32rem] lg:h-[48rem]  lg:min-w-[40rem] ${
               isLoadImage === false ? "hidden" : "block"
             }`}
             radius="none"
