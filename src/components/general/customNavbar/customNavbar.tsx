@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import {
+  Button,
   Navbar,
   NavbarBrand,
   NavbarContent,
@@ -12,6 +13,7 @@ import {
 } from "@nextui-org/react";
 
 import { IconShoppingCart, IconHeart } from "@tabler/icons-react";
+import { DrawerShopCart } from "..";
 
 const optionsNavbar = [
   { name: "Home", href: "/", subItems: [] },
@@ -20,13 +22,14 @@ const optionsNavbar = [
   { name: "Contáctanos", href: "/contact", subItems: [] },
 ];
 
-const iconsOptions = [
-  { name: "favoritos", href: "/", icon: <IconHeart /> },
-  { name: "carrito", href: "/", icon: <IconShoppingCart /> },
-];
+// const iconsOptions = [
+//   { name: "favoritos", href: "/", icon: <IconHeart /> },
+//   { name: "carrito", href: "/", icon: <IconShoppingCart /> },
+// ];
 
 export const CustomNavbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   return (
     <div className="fixed z-50 top-0 right-0 left-0">
@@ -65,11 +68,30 @@ export const CustomNavbar = () => {
           ))}
         </NavbarContent>
         <NavbarContent justify="end">
-          {iconsOptions.map((option) => (
+          {/* {iconsOptions.map((option) => (
             <NavbarItem key={option.name}>
-              <Link href={option.href}>{option.icon}</Link>
+              <Button
+                href={option.href}
+                isIconOnly
+                variant="light"
+                data-drawer-target="drawer-right-example"
+                data-drawer-show="drawer-right-example"
+                data-drawer-placement="right"
+                aria-controls="drawer-right-example"
+              >
+                {option.icon}
+              </Button>
             </NavbarItem>
-          ))}
+          ))} */}
+          <NavbarItem key="shopping-cart">
+            <Button
+              isIconOnly
+              variant="light"
+              onClick={() => setIsDrawerOpen(true)}
+            >
+              <IconShoppingCart />
+            </Button>
+          </NavbarItem>
         </NavbarContent>
 
         <NavbarMenu>
@@ -86,6 +108,11 @@ export const CustomNavbar = () => {
           ))}
         </NavbarMenu>
       </Navbar>
+      <DrawerShopCart
+        isOpen={isDrawerOpen}
+        setOpen={setIsDrawerOpen}
+        lisProducts={[]}
+      />
     </div>
   );
 };
