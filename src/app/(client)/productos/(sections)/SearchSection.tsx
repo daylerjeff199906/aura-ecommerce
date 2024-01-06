@@ -11,7 +11,7 @@ export const SearchSection = () => {
   const textSearch = getParams("search", "");
 
   return (
-    <div className="bg-white pt-2">
+    <div className="bg-white pt-6">
       <div className="py-4 w-full">
         <div className="flex w-full gap-2 sm:gap-6 items-center container">
           <div className="hidden lg:block w-full lg:max-w-[14rem] xl:max-w-[16rem]">

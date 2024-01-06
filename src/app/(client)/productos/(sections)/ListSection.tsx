@@ -8,7 +8,7 @@ export const ListSection = () => {
   const textSearch = getParams("search", "");
 
   return (
-    <div className="w-full py-4">
+    <div className="w-full pt-24 pb-14">
       {textSearch !== "" && (
         <div className="pb-6">
           <h2 className="">

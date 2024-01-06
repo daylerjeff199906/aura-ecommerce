@@ -7,7 +7,7 @@ import { Providers } from "./providers";
 const inter = Inter({ subsets: ["latin"], display: "swap" });
 
 export const metadata: Metadata = {
-  title: "Aurora",
+  title: "Aura",
   description: "Ecommerce website built with Next.js and TypeScript",
 };
 
