@@ -6,6 +6,7 @@ import {
   IconTrash,
 } from "@tabler/icons-react";
 import { IProducts } from "@/types";
+import Link from "next/link";
 
 export const DrawerShopCart = ({
   isOpen,
@@ -25,6 +26,11 @@ export const DrawerShopCart = ({
   const overlayClasses = `fixed top-0 right-0 bottom-0 left-0 z-50 transition-opacity ${
     isOpen ? "opacity-50" : "opacity-0 pointer-events-none"
   } bg-black`;
+
+  const totalPrice = lisProducts?.reduce(
+    (acc, product) => acc + Number(product.price),
+    0
+  );
 
   return (
     <div>
@@ -52,7 +58,8 @@ export const DrawerShopCart = ({
           </Button>
         </div>
         <Divider />
-        <div>
+        {/** Lista de productos en carrito */}
+        <div className="flex-grow overflow-y-auto">
           {lisProducts &&
             (lisProducts?.length > 0 ? (
               <>
@@ -107,6 +114,24 @@ export const DrawerShopCart = ({
                 </h3>
               </div>
             ))}
+        </div>
+        {/** Total y acciones */}
+        <Divider />
+        <div className="py-4 space-y-3">
+          <h3 className="text-sm">
+            Total a pagar:
+            <span className="text-lg font-semibold ml-4">s/. {totalPrice}</span>
+          </h3>
+          <Button
+            radius="none"
+            variant="ghost"
+            color="danger"
+            fullWidth
+            as={Link}
+            href="/carrito"
+          >
+            Adquirir producto(s)
+          </Button>
         </div>
       </div>
     </div>

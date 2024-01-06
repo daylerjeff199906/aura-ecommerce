@@ -10,6 +10,7 @@ import {
   Link,
   NavbarMenu,
   NavbarMenuItem,
+  Badge,
 } from "@nextui-org/react";
 import { useLogicShopCart } from "@/providers";
 import { IconShoppingCart, IconHeart } from "@tabler/icons-react";
@@ -70,7 +71,13 @@ export const CustomNavbar = () => {
               variant="light"
               onClick={() => setIsDrawerOpen(true)}
             >
-              <IconShoppingCart />
+              <Badge
+                color="danger"
+                content={listProducts?.length}
+                isInvisible={listProducts?.length === 0}
+              >
+                <IconShoppingCart />
+              </Badge>
             </Button>
           </NavbarItem>
         </NavbarContent>

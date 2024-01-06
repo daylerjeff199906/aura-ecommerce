@@ -7,6 +7,7 @@ import {
   CardFooter,
   Chip,
   Image,
+  Tooltip,
 } from "@nextui-org/react";
 import { IProducts } from "@/types";
 import { IconHeartPlus, IconShoppingCartPlus } from "@tabler/icons-react";
@@ -47,13 +48,15 @@ export const CardGallery = ({ data }: { data?: IProducts }) => {
           endContent={<IconHeartPlus size={24} strokeWidth={1.5} />}
           className="absolute bottom-14 right-4 z-20 bg-white"
         />
-        <Button
-          isIconOnly
-          radius="full"
-          endContent={<IconShoppingCartPlus size={24} strokeWidth={1.5} />}
-          className="absolute bottom-2 right-4 z-20 bg-white"
-          onClick={() => data && addToCart(data)}
-        />
+        <Tooltip content="Agregar al carrito" placement="right-end" showArrow>
+          <Button
+            isIconOnly
+            radius="full"
+            endContent={<IconShoppingCartPlus size={24} strokeWidth={1.5} />}
+            className="absolute bottom-2 right-4 z-20 bg-white"
+            onClick={() => data && addToCart(data)}
+          />
+        </Tooltip>
       </div>
       <CardBody>
         <p className="text-sm text-zinc-400">{data?.category}</p>
