@@ -1,4 +1,4 @@
-import { Button, Divider, Image } from "@nextui-org/react";
+import { Button, Divider, Image, Link } from "@nextui-org/react";
 import {
   IconX,
   IconShoppingCart,
@@ -6,7 +6,6 @@ import {
   IconTrash,
 } from "@tabler/icons-react";
 import { IProducts } from "@/types";
-import Link from "next/link";
 
 export const DrawerShopCart = ({
   isOpen,

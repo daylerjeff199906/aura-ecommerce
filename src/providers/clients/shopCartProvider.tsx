@@ -18,16 +18,19 @@ export const ShopCartProvider = ({
   children: React.ReactNode;
 }) => {
   const [cart, setCart] = useState<IProducts[]>([]);
-
+  console.log(cart);
   useEffect(() => {
     const storedCart = localStorage.getItem("cart");
+    console.log(storedCart);
     if (storedCart) {
       setCart(JSON.parse(storedCart));
     }
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(cart));
+    if (cart) {
+      localStorage.setItem("cart", JSON.stringify(cart));
+    }
   }, [cart]);
 
   const addToCart = (product: IProducts) => {
