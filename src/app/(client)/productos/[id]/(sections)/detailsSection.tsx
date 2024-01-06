@@ -27,14 +27,14 @@ export const DetailsSection = ({ id }: { id: string }) => {
             onLoad={() => setIsLoadImage(true)}
           />
         </div>
-        <div className="py-12 space-y-6">
+        <div className="sm:py-12 space-y-6">
           <div className="space-y-2">
             <p>Tag</p>
             <h1 className="text-4xl font-bold">{product?.name}</h1>
             <h3 className="font-bold text-lg">s/ {product?.price}</h3>
             <p className="text-zinc-600">{product?.description}</p>
           </div>
-          <div className="w-full space-y-4">
+          <div className="w-full space-y-3">
             <Button color="default" radius="none" fullWidth variant="bordered">
               Agregar al carrito
             </Button>

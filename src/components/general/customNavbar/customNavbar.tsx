@@ -29,7 +29,7 @@ export const CustomNavbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <div className="fixed z-40 top-0 right-0 left-0">
+    <div className="fixed z-50 top-0 right-0 left-0">
       <div className="bg-pink-500 px-4 py-2">
         <h1 className="text-sm font-semibold text-white line-clamp-1 text-center">
           Hasta 50% de descuento en productos seleccionados
@@ -38,7 +38,7 @@ export const CustomNavbar = () => {
       <Navbar
         maxWidth="2xl"
         isBlurred={false}
-        className="z-40"
+        className="z-50"
         isBordered
         isMenuOpen={isMenuOpen}
         onMenuOpenChange={setIsMenuOpen}
@@ -50,7 +50,9 @@ export const CustomNavbar = () => {
         </NavbarContent>
         <NavbarContent>
           <NavbarBrand>
-            <h1 className="font-bold text-3xl">Aura</h1>
+            <Link href="/" color="foreground">
+              <h1 className="font-bold text-3xl">Aura</h1>
+            </Link>
           </NavbarBrand>
         </NavbarContent>
         <NavbarContent className="hidden sm:flex gap-4 " justify="center">
