@@ -41,6 +41,35 @@ const convertDataToIProducts = (data: DocumentData[]) => {
   });
 };
 
+const convertDataToIProduct = (data: DocumentData) => {
+  const {
+    name,
+    price,
+    image,
+    description,
+    category,
+    discount,
+    stock,
+    isOffer,
+    createdAt,
+  } = data;
+
+  const id = data?.id;
+
+  return {
+    id: id,
+    name: name,
+    price: price,
+    image: image,
+    isOffer: isOffer,
+    description: description,
+    category: "",
+    discount: discount,
+    stock: stock,
+    createdAt: createdAt,
+  };
+};
+
 export function useDataProducts() {
   const [loading, setLoading] = useState<boolean>(true);
   const [products, setProducts] = useState<IProducts[] | null>(null);
@@ -72,7 +101,7 @@ export function useDataProducts() {
 
       if (productDoc.exists()) {
         const product = productDoc.data();
-        return product;
+        setProduct(convertDataToIProduct(product));
       } else {
         console.log("No such document!");
       }
@@ -81,5 +110,5 @@ export function useDataProducts() {
     }
   };
 
-  return { loading, products, getProducts, getProductById };
+  return { loading, products, getProducts, getProductById, product };
 }
