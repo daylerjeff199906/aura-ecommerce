@@ -76,7 +76,7 @@ export const CardGallery = ({ data }: { data?: IProducts }) => {
           radius="none"
           fullWidth
           as={Link}
-          href={`/productos/${data?.name}`}
+          href={`/productos/${data?.id}`}
         >
           Ver producto
         </Button>

@@ -1,6 +1,13 @@
 import { useState } from "react";
 import { db } from "@/firebase/firebase";
-import { collection, getDocs, DocumentData } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  DocumentData,
+  doc,
+  DocumentReference,
+  getDoc,
+} from "firebase/firestore";
 import { IProducts } from "@/types";
 
 const convertDataToIProducts = (data: DocumentData[]) => {
@@ -16,7 +23,11 @@ const convertDataToIProducts = (data: DocumentData[]) => {
       isOffer,
       createdAt,
     } = product;
+
+    const id = product?.id;
+
     return {
+      id: id,
       name: name,
       price: price,
       image: image,
@@ -33,12 +44,16 @@ const convertDataToIProducts = (data: DocumentData[]) => {
 export function useDataProducts() {
   const [loading, setLoading] = useState<boolean>(true);
   const [products, setProducts] = useState<IProducts[] | null>(null);
+  const [product, setProduct] = useState<IProducts | null>(null);
 
   const getProducts = async () => {
     setLoading(true);
     try {
       const querySnapshot = await getDocs(collection(db, "products"));
-      const products = querySnapshot?.docs?.map((doc) => doc.data());
+      const products = querySnapshot?.docs?.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
       setProducts(convertDataToIProducts(products));
       setLoading(false);
     } catch (error) {
@@ -46,5 +61,25 @@ export function useDataProducts() {
     }
   };
 
-  return { loading, products, getProducts };
+  const getProductById = async (id: string) => {
+    try {
+      const productRef: DocumentReference<DocumentData> = doc(
+        db,
+        "products",
+        id
+      );
+      const productDoc = await getDoc(productRef);
+
+      if (productDoc.exists()) {
+        const product = productDoc.data();
+        return product;
+      } else {
+        console.log("No such document!");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  return { loading, products, getProducts, getProductById };
 }
