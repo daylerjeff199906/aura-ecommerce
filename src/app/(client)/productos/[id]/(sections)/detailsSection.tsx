@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import { useEffect, useState } from "react";
-import { Button, Image } from "@nextui-org/react";
+import { Button, Image, Skeleton } from "@nextui-org/react";
 import { SentDetailSection } from "./sentDetailSection";
 import { useDataProducts } from "@/hooks";
 
@@ -13,15 +13,24 @@ export const DetailsSection = ({ id }: { id: string }) => {
     getProductById(id);
   }, [id]);
 
+  console.log(isLoadImage);
+
   return (
     <section className="container max-w-7xl">
       <div className="block sm:flex gap-6 lg:gap-10">
-        <div className="py-12">
+        <div className="py-12 ">
+          {isLoadImage === false && (
+            <Skeleton className="animate-pulse">
+              <div className="sm:h-[32rem] lg:h-[48rem] sm:w-[30rem] lg:w-[38rem] rounded-lg bg-default-300"></div>
+            </Skeleton>
+          )}
           <Image
             src={product?.image}
             alt="img_data"
             removeWrapper={true}
-            className="object-cover sm:h-[32rem] lg:h-[48rem]"
+            className={`object-cover sm:h-[32rem] lg:h-[48rem] lg:w-[64rem] ${
+              isLoadImage === false ? "hidden" : "block"
+            }`}
             radius="none"
             loading="lazy"
             onLoad={() => setIsLoadImage(true)}
