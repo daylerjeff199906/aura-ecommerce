@@ -10,10 +10,12 @@ import {
 } from "@nextui-org/react";
 import { IProducts } from "@/types";
 import { IconHeartPlus, IconShoppingCartPlus } from "@tabler/icons-react";
+import { useLogicShopCart } from "@/providers";
 import Link from "next/link";
 
 export const CardGallery = ({ data }: { data?: IProducts }) => {
   const [isHover, setIsHover] = useState(false);
+  const { addToCart } = useLogicShopCart();
 
   return (
     <Card
@@ -50,6 +52,7 @@ export const CardGallery = ({ data }: { data?: IProducts }) => {
           radius="full"
           endContent={<IconShoppingCartPlus size={24} strokeWidth={1.5} />}
           className="absolute bottom-2 right-4 z-20 bg-white"
+          onClick={() => data && addToCart(data)}
         />
       </div>
       <CardBody>

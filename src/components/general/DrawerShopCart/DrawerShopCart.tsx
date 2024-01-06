@@ -1,8 +1,9 @@
-import { Button, Divider } from "@nextui-org/react";
+import { Button, Divider, Image } from "@nextui-org/react";
 import {
   IconX,
   IconShoppingCart,
   IconShoppingCartOff,
+  IconTrash,
 } from "@tabler/icons-react";
 import { IProducts } from "@/types";
 
@@ -10,10 +11,12 @@ export const DrawerShopCart = ({
   isOpen,
   setOpen,
   lisProducts,
+  deleteProduct,
 }: {
   isOpen: boolean;
   setOpen?: (value: boolean) => void;
   lisProducts?: IProducts[];
+  deleteProduct?: (id: string) => void;
 }) => {
   const drawerClasses = `fixed top-0 right-0 z-50 h-screen p-4 overflow-y-auto transition-transform ${
     isOpen ? "translate-x-0" : "translate-x-full"
@@ -52,7 +55,44 @@ export const DrawerShopCart = ({
         <div>
           {lisProducts &&
             (lisProducts?.length > 0 ? (
-              <></>
+              <>
+                {lisProducts.map((product) => (
+                  <div
+                    key={product.id}
+                    className="flex items-center justify-between py-4"
+                  >
+                    <div className="flex items-center gap-4">
+                      <Image
+                        src={product?.image}
+                        alt={product.name}
+                        className="h-16 w-20 object-cover"
+                        removeWrapper={true}
+                        radius="sm"
+                      />
+                      <div>
+                        <h5 className="text-sm font-semibold line-clamp-1 mb-1">
+                          {product.name}
+                        </h5>
+                        <p className="text-base text-gray-500 font-semibold">
+                          s/. {product.price}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-4">
+                      <Button
+                        variant="light"
+                        size="sm"
+                        isIconOnly
+                        onClick={() =>
+                          deleteProduct && deleteProduct(product.id)
+                        }
+                      >
+                        <IconTrash stroke={1} />
+                      </Button>
+                    </div>
+                  </div>
+                ))}
+              </>
             ) : (
               <div className="py-6 space-y-4 text-center">
                 <div className="flex items-center justify-center">

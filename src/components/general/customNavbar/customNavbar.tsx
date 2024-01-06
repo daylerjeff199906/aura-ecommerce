@@ -11,7 +11,7 @@ import {
   NavbarMenu,
   NavbarMenuItem,
 } from "@nextui-org/react";
-
+import { useLogicShopCart } from "@/providers";
 import { IconShoppingCart, IconHeart } from "@tabler/icons-react";
 import { DrawerShopCart } from "..";
 
@@ -22,14 +22,10 @@ const optionsNavbar = [
   { name: "Contáctanos", href: "/contact", subItems: [] },
 ];
 
-// const iconsOptions = [
-//   { name: "favoritos", href: "/", icon: <IconHeart /> },
-//   { name: "carrito", href: "/", icon: <IconShoppingCart /> },
-// ];
-
 export const CustomNavbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const { listProducts, removeToCart } = useLogicShopCart();
 
   return (
     <div className="fixed z-50 top-0 right-0 left-0">
@@ -68,21 +64,6 @@ export const CustomNavbar = () => {
           ))}
         </NavbarContent>
         <NavbarContent justify="end">
-          {/* {iconsOptions.map((option) => (
-            <NavbarItem key={option.name}>
-              <Button
-                href={option.href}
-                isIconOnly
-                variant="light"
-                data-drawer-target="drawer-right-example"
-                data-drawer-show="drawer-right-example"
-                data-drawer-placement="right"
-                aria-controls="drawer-right-example"
-              >
-                {option.icon}
-              </Button>
-            </NavbarItem>
-          ))} */}
           <NavbarItem key="shopping-cart">
             <Button
               isIconOnly
@@ -111,7 +92,8 @@ export const CustomNavbar = () => {
       <DrawerShopCart
         isOpen={isDrawerOpen}
         setOpen={setIsDrawerOpen}
-        lisProducts={[]}
+        lisProducts={listProducts ?? []}
+        deleteProduct={removeToCart}
       />
     </div>
   );

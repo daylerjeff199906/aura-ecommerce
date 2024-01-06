@@ -2,10 +2,15 @@
 
 import { NextUIProvider } from "@nextui-org/react";
 
+//for moment
+import { ShopCartProvider } from "@/providers";
+
 export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <NextUIProvider>
-      <div>{children}</div>
+      <ShopCartProvider>
+        <div>{children}</div>
+      </ShopCartProvider>
     </NextUIProvider>
   );
 }
