@@ -1,5 +1,10 @@
-import { createContext, useContext, useEffect, useState } from "react";
-// import { useDataProducts } from "@/hooks";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  useCallback,
+} from "react";
 import { IProducts } from "@/types";
 
 export const ShopCartContext = createContext<{
@@ -17,33 +22,40 @@ export const ShopCartProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [cart, setCart] = useState<IProducts[]>([]);
-  console.log(cart);
-  useEffect(() => {
+  const [cart, setCart] = useState<IProducts[] | null>(() => {
     const storedCart = localStorage.getItem("cart");
-    console.log(storedCart);
-    if (storedCart) {
-      setCart(JSON.parse(storedCart));
-    }
+    return storedCart ? JSON.parse(storedCart) : null;
+  });
+
+  useEffect(() => {
+    const handleStorageChange = () => {
+      const storedCart = localStorage.getItem("cart");
+      setCart(storedCart ? JSON.parse(storedCart) : null);
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+    };
   }, []);
 
-  useEffect(() => {
-    if (cart) {
-      localStorage.setItem("cart", JSON.stringify(cart));
-    }
-  }, [cart]);
+  const addToCart = useCallback((product: IProducts) => {
+    setCart((prevCart) => {
+      const newCart = prevCart !== null ? [...prevCart, product] : [product];
+      localStorage.setItem("cart", JSON.stringify(newCart));
+      return newCart;
+    });
+  }, []);
 
-  const addToCart = (product: IProducts) => {
-    // Añadir el producto al carrito solo si no está ya presente
-    if (!cart.some((p) => p.id === product.id)) {
-      setCart([...cart, product]);
-    }
-  };
-
-  const removeToCart = (productId: string) => {
-    // Quitar el producto del carrito
-    setCart(cart.filter((product) => product.id !== productId));
-  };
+  const removeToCart = useCallback((productId: string) => {
+    setCart((prevCart) => {
+      const newCart =
+        prevCart?.filter((product) => product.id !== productId) || null;
+      localStorage.setItem("cart", JSON.stringify(newCart));
+      return newCart;
+    });
+  }, []);
 
   return (
     <ShopCartContext.Provider
