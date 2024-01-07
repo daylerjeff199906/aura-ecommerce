@@ -1,15 +1,10 @@
-// import localforage from "localforage";
-interface ILocalStorageService {
-  getItem: (key: string) => string | null;
-}
-
 export const localStorageService = {
   setItem: (key: string, value: any) => {
     localStorage.setItem(key, value);
   },
 
   getItem: (key: string) => {
-    return localStorage.getItem(key);
+    return typeof window !== "undefined" ? localStorage.getItem(key) : null;
   },
 
   removeItem: (key: string) => {
