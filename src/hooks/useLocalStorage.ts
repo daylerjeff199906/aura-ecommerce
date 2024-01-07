@@ -1,16 +1,19 @@
-import localforage from "localforage";
+// import localforage from "localforage";
+interface ILocalStorageService {
+  getItem: (key: string) => string | null;
+}
 
-const localStorageService = {
-  setItem: async (key: string, value: any) => {
-    await localforage.setItem(key, value);
+export const localStorageService = {
+  setItem: (key: string, value: any) => {
+    localStorage.setItem(key, value);
   },
 
-  getItem: async <T>(key: string): Promise<T | null> => {
-    return await localforage.getItem(key);
+  getItem: (key: string) => {
+    return localStorage.getItem(key);
   },
 
-  removeItem: async (key: string) => {
-    await localforage.removeItem(key);
+  removeItem: (key: string) => {
+    localStorage.removeItem(key);
   },
 };
 
