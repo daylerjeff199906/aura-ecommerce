@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { IProducts } from "@/types";
-import { localStorageService } from "@/hooks";
+// import { localStorageService } from "@/hooks";
 
 export const ShopCartContext = createContext<{
   listProducts: IProducts[] | null;
@@ -18,13 +18,13 @@ export const ShopCartProvider = ({
   children: React.ReactNode;
 }) => {
   const [cart, setCart] = useState<IProducts[] | null>(() => {
-    const storedCart = localStorageService.getItem("cart");
+    const storedCart = localStorage.getItem("cart");
     return storedCart ? JSON.parse(storedCart) : null;
   });
 
   useEffect(() => {
     const handleStorageChange = () => {
-      const storedCart = localStorageService.getItem("cart");
+      const storedCart = localStorage.getItem("cart");
       setCart(storedCart ? JSON.parse(storedCart) : null);
     };
 
@@ -45,13 +45,13 @@ export const ShopCartProvider = ({
 
     const newCart = cart !== null ? [...cart, product] : [product];
     setCart(newCart);
-    localStorageService.setItem("cart", JSON.stringify(newCart));
+    localStorage.setItem("cart", JSON.stringify(newCart));
   };
 
   const removeToCart = (productId: string) => {
     const newCart = cart?.filter((product) => product.id !== productId) || null;
     setCart(newCart);
-    localStorageService.setItem("cart", JSON.stringify(newCart));
+    localStorage.setItem("cart", JSON.stringify(newCart));
   };
 
   return (

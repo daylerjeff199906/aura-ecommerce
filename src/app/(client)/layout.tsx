@@ -1,5 +1,16 @@
 "use client";
 import { ShopCartProvider } from "@/providers";
-export default function Layout({ children }: { children: React.ReactNode }) {
-  return <ShopCartProvider>{children}</ShopCartProvider>;
+import { CustomNavbar, Footer } from "@/components";
+export default function LayoutClient({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <ShopCartProvider>
+      <CustomNavbar />
+      {children}
+      <Footer />
+    </ShopCartProvider>
+  );
 }
