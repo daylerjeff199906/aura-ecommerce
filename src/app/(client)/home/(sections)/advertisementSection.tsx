@@ -14,7 +14,7 @@ export const AdvertisementSection = () => {
             className=" object-cover w-full hover:cursor-pointer"
           />
         </Link>
-        <Link href={"/productos/isNew=1"}>
+        <Link href={"/productos?isNew=1"}>
           <Image
             alt="cutom-bracelets"
             src="https://firebasestorage.googleapis.com/v0/b/aurora-ecommerce.appspot.com/o/aurora-ecommerce%2Fadvertising%2Facces-more.webp?alt=media&token=6a8d29a7-8252-429a-ad20-f07a9cbbce20"
