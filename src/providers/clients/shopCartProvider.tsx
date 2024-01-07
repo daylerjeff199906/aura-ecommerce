@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { IProducts } from "@/types";
-// import { localStorageService } from "@/hooks";
+import { localStorageService } from "@/hooks";
 
 export const ShopCartContext = createContext<{
   listProducts: IProducts[] | null;

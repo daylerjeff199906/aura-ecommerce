@@ -1,3 +1,4 @@
+"use client";
 export const localStorageService = {
   setItem: (key: string, value: any) => {
     localStorage.setItem(key, value);
