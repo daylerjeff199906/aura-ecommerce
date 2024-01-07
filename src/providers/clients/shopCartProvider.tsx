@@ -42,6 +42,13 @@ export const ShopCartProvider = ({
 
   const addToCart = useCallback((product: IProducts) => {
     setCart((prevCart) => {
+      const isProductInCart =
+        prevCart !== null && prevCart.some((p) => p.id === product.id);
+
+      if (isProductInCart) {
+        return prevCart;
+      }
+
       const newCart = prevCart !== null ? [...prevCart, product] : [product];
       localStorage.setItem("cart", JSON.stringify(newCart));
       return newCart;
