@@ -3,7 +3,6 @@ import {
   useContext,
   useEffect,
   useState,
-  useCallback,
 } from "react";
 import { IProducts } from "@/types";
 
@@ -40,29 +39,25 @@ export const ShopCartProvider = ({
     };
   }, []);
 
-  const addToCart = useCallback((product: IProducts) => {
-    setCart((prevCart) => {
-      const isProductInCart =
-        prevCart !== null && prevCart.some((p) => p.id === product.id);
+  const addToCart = (product: IProducts) => {
+    const isProductInCart =
+      cart !== null && cart.some((p) => p.id === product.id);
 
-      if (isProductInCart) {
-        return prevCart;
-      }
+    if (isProductInCart) {
+      // No agregar el mismo producto más de una vez
+      return;
+    }
 
-      const newCart = prevCart !== null ? [...prevCart, product] : [product];
-      localStorage.setItem("cart", JSON.stringify(newCart));
-      return newCart;
-    });
-  }, []);
+    const newCart = cart !== null ? [...cart, product] : [product];
+    setCart(newCart);
+    localStorage.setItem("cart", JSON.stringify(newCart));
+  };
 
-  const removeToCart = useCallback((productId: string) => {
-    setCart((prevCart) => {
-      const newCart =
-        prevCart?.filter((product) => product.id !== productId) || null;
-      localStorage.setItem("cart", JSON.stringify(newCart));
-      return newCart;
-    });
-  }, []);
+  const removeToCart = (productId: string) => {
+    const newCart = cart?.filter((product) => product.id !== productId) || null;
+    setCart(newCart);
+    localStorage.setItem("cart", JSON.stringify(newCart));
+  };
 
   return (
     <ShopCartContext.Provider
