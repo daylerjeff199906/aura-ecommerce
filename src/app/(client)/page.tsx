@@ -1,4 +1,4 @@
-import HomePage from "./(client)/home/homePage";
+import HomePage from "./home/homePage";
 
 export default function Home() {
   return (
