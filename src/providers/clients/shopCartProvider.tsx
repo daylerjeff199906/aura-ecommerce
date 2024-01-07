@@ -1,3 +1,4 @@
+'use client'
 import {
   createContext,
   useContext,
@@ -44,7 +45,6 @@ export const ShopCartProvider = ({
       cart !== null && cart.some((p) => p.id === product.id);
 
     if (isProductInCart) {
-      // No agregar el mismo producto más de una vez
       return;
     }
 
