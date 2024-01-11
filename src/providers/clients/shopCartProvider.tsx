@@ -1,6 +1,6 @@
+"use cliente";
 import { createContext, useContext, useEffect, useState } from "react";
 import { IProducts } from "@/types";
-import { localStorageService } from "@/hooks";
 
 export const ShopCartContext = createContext<{
   listProducts: IProducts[] | null;
@@ -17,22 +17,14 @@ export const ShopCartProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [cart, setCart] = useState<IProducts[] | null>(() => {
-    const storedCart = localStorage.getItem("cart");
-    return storedCart ? JSON.parse(storedCart) : null;
-  });
+  const [cart, setCart] = useState<IProducts[] | null>([]);
 
   useEffect(() => {
-    const handleStorageChange = () => {
+    if (typeof window !== "undefined") {
       const storedCart = localStorage.getItem("cart");
-      setCart(storedCart ? JSON.parse(storedCart) : null);
-    };
-
-    window.addEventListener("storage", handleStorageChange);
-
-    return () => {
-      window.removeEventListener("storage", handleStorageChange);
-    };
+      const data = storedCart ? JSON.parse(storedCart) : null;
+      setCart(data);
+    }
   }, []);
 
   const addToCart = (product: IProducts) => {

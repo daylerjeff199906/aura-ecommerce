@@ -13,7 +13,6 @@ import {
   Badge,
 } from "@nextui-org/react";
 import { useLogicShopCart } from "@/providers";
-import { localStorageService } from "@/hooks";
 import { IconShoppingCart, IconHeart } from "@tabler/icons-react";
 import { DrawerShopCart } from "..";
 
