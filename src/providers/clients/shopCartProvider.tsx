@@ -1,5 +1,5 @@
+"use cliente";
 import { createContext, useContext, useEffect, useState } from "react";
-// import { useDataProducts } from "@/hooks";
 import { IProducts } from "@/types";
 
 export const ShopCartContext = createContext<{
@@ -17,32 +17,33 @@ export const ShopCartProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [cart, setCart] = useState<IProducts[]>([]);
-  console.log(cart);
+  const [cart, setCart] = useState<IProducts[] | null>([]);
+
   useEffect(() => {
-    const storedCart = localStorage.getItem("cart");
-    console.log(storedCart);
-    if (storedCart) {
-      setCart(JSON.parse(storedCart));
+    if (typeof window !== "undefined") {
+      const storedCart = localStorage.getItem("cart");
+      const data = storedCart ? JSON.parse(storedCart) : null;
+      setCart(data);
     }
   }, []);
 
-  useEffect(() => {
-    if (cart) {
-      localStorage.setItem("cart", JSON.stringify(cart));
-    }
-  }, [cart]);
-
   const addToCart = (product: IProducts) => {
-    // Añadir el producto al carrito solo si no está ya presente
-    if (!cart.some((p) => p.id === product.id)) {
-      setCart([...cart, product]);
+    const isProductInCart =
+      cart !== null && cart.some((p) => p.id === product.id);
+
+    if (isProductInCart) {
+      return;
     }
+
+    const newCart = cart !== null ? [...cart, product] : [product];
+    setCart(newCart);
+    localStorage.setItem("cart", JSON.stringify(newCart));
   };
 
   const removeToCart = (productId: string) => {
-    // Quitar el producto del carrito
-    setCart(cart.filter((product) => product.id !== productId));
+    const newCart = cart?.filter((product) => product.id !== productId) || null;
+    setCart(newCart);
+    localStorage.setItem("cart", JSON.stringify(newCart));
   };
 
   return (

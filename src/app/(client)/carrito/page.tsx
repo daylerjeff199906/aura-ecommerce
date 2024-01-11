@@ -1,3 +1,10 @@
+"use client";
+import { DetailsSection } from "./(sections)/detailsSection";
+
 export default function CartPage() {
-  return <>Soy el carrito</>;
+  return (
+    <>
+      <DetailsSection />
+    </>
+  );
 }
