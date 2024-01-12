@@ -1,13 +1,24 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import { useEffect, useState } from "react";
-import { Button, Input, Select, Textarea, SelectItem } from "@nextui-org/react";
+import { useRouter } from "next/navigation";
+import {
+  Button,
+  Input,
+  Select,
+  Textarea,
+  SelectItem,
+  Spinner,
+} from "@nextui-org/react";
 import { useProducts } from "@/hooks";
 import { useDataCategory } from "@/hooks";
+import { IconCircleCheck } from "@tabler/icons-react";
 
 export const FrmProduct = () => {
-  const { addProduct } = useProducts();
+  const { addProduct, loading, message } = useProducts();
   const { categories, getCategory } = useDataCategory();
+  const router = useRouter();
+
   const [product, setProduct] = useState({
     name: "",
     price: "0",
@@ -44,16 +55,37 @@ export const FrmProduct = () => {
     getCategory();
   }, []);
 
-  // console.log(categories);
+  useEffect(() => {
+    if (message) {
+      setTimeout(() => {
+        router.push("/admin/productos");
+      }, 2000);
+    }
+  }, [message]);
 
   return (
     <>
+      {loading && (
+        <div className="flex gap-2 py-2 items-center">
+          <Spinner />
+          <h3>Agregando producto...</h3>
+        </div>
+      )}
+      {message && (
+        <div className="flex gap-2 p-2 mb-4  items-center bg-green-100">
+          <div className="text-green-500">
+            <IconCircleCheck size={24} />
+          </div>
+          <h3>{message}</h3>
+        </div>
+      )}
       <div className="space-y-4">
         <Input
           radius={radius}
           label="Nombre"
           placeholder="Nombre"
           value={product.name}
+          disabled={loading}
           onChange={(e) => setProduct({ ...product, name: e.target.value })}
         />
         <Textarea
@@ -61,6 +93,7 @@ export const FrmProduct = () => {
           label="Descripción"
           placeholder="Descripción"
           value={product.description}
+          disabled={loading}
           onChange={(e) =>
             setProduct({ ...product, description: e.target.value })
           }
@@ -68,6 +101,7 @@ export const FrmProduct = () => {
         <Select
           label="Categoría"
           placeholder="Categoría"
+          disabled={loading}
           radius={radius}
           selectedKeys={[product.category]}
           onChange={(e) => setProduct({ ...product, category: e.target.value })}
@@ -88,6 +122,7 @@ export const FrmProduct = () => {
         <div className="flex gap-4">
           <Input
             radius={radius}
+            disabled={loading}
             label="Precio"
             placeholder="Precio"
             value={product.price}
@@ -106,6 +141,7 @@ export const FrmProduct = () => {
           />
           <Input
             radius={radius}
+            disabled={loading}
             label="Discount"
             placeholder="discount"
             value={product.discount.toString()}
@@ -115,7 +151,12 @@ export const FrmProduct = () => {
           />
         </div>
         <div className="flex gap-2">
-          <Button color="primary" onClick={handleAddProduct} radius={radius}>
+          <Button
+            color="primary"
+            onClick={handleAddProduct}
+            radius={radius}
+            disabled={loading}
+          >
             Guardar
           </Button>
           <Button color="danger" onClick={handleClearProduct} radius={radius}>
