@@ -1,5 +1,5 @@
 "use client";
-import { NavbarAdmin } from "@/components";
+import { NavbarAdmin, SiderBarMenu } from "@/components";
 import { AuthProvider } from "@/providers";
 
 export default function LayoutAdmin({
@@ -10,7 +10,7 @@ export default function LayoutAdmin({
   return (
     <AuthProvider>
       <NavbarAdmin />
-      {children}
+      <SiderBarMenu>{children}</SiderBarMenu>
     </AuthProvider>
   );
 }
