@@ -6,7 +6,10 @@ import { ICategory } from "@/types";
 const convertDataToICategory = (data: DocumentData[]) => {
   return data?.map((category) => {
     const { name, image } = category;
+    const id = category?.id;
     return {
+      id: id,
+      value: id,
       name,
       image,
     };
@@ -21,7 +24,10 @@ export function useDataCategory() {
     setLoading(true);
     try {
       const querySnapshot = await getDocs(collection(db, "categories"));
-      const categories = querySnapshot.docs.map((doc) => doc.data());
+      const categories = querySnapshot?.docs?.map((doc) => ({
+        id: doc.id.toString(),
+        ...doc.data(),
+      }));
       setCategories(convertDataToICategory(categories));
       setLoading(false);
     } catch (error) {
