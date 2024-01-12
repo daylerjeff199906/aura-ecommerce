@@ -83,6 +83,7 @@ export const FrmProduct = () => {
         <Input
           radius={radius}
           label="Nombre"
+          aria-label="Nombre"
           placeholder="Nombre"
           value={product.name}
           disabled={loading}
@@ -91,6 +92,7 @@ export const FrmProduct = () => {
         <Textarea
           radius={radius}
           label="Descripción"
+          aria-label="Descripción"
           placeholder="Descripción"
           value={product.description}
           disabled={loading}
@@ -100,6 +102,7 @@ export const FrmProduct = () => {
         />
         <Select
           label="Categoría"
+          aria-label="Categoría"
           placeholder="Categoría"
           disabled={loading}
           radius={radius}
@@ -122,6 +125,7 @@ export const FrmProduct = () => {
         <div className="flex gap-4">
           <Input
             radius={radius}
+            arial-label="Precio"
             disabled={loading}
             label="Precio"
             placeholder="Precio"
@@ -142,7 +146,8 @@ export const FrmProduct = () => {
           <Input
             radius={radius}
             disabled={loading}
-            label="Discount"
+            label="Descuento"
+            aria-label="Descuento"
             placeholder="discount"
             value={product.discount.toString()}
             onChange={(e) =>
