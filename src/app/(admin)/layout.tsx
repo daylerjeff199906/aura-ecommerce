@@ -1,4 +1,5 @@
 "use client";
+import { NavbarAdmin } from "@/components";
 import { AuthProvider } from "@/providers";
 
 export default function LayoutAdmin({
@@ -6,5 +7,10 @@ export default function LayoutAdmin({
 }: {
   children: React.ReactNode;
 }) {
-  return <AuthProvider>{children}</AuthProvider>;
+  return (
+    <AuthProvider>
+      <NavbarAdmin />
+      {children}
+    </AuthProvider>
+  );
 }
