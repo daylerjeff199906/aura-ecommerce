@@ -1,11 +1,14 @@
 "use client";
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import auth from "@/firebase/auth";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { Button, Input, Spinner } from "@nextui-org/react";
 import { IconEye, IconEyeOff } from "@tabler/icons-react";
 
 export default function LoginPage() {
+  const router = useRouter();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -25,6 +28,7 @@ export default function LoginPage() {
       await signInWithEmailAndPassword(auth, email, password);
       setLoading(false);
       console.log("Inicio de sesión exitoso");
+      router.push("/admin"); // Redirige a la página de inicio
     } catch (error) {
       setLoading(false);
       setError("Error al iniciar sesión");
@@ -66,11 +70,7 @@ export default function LoginPage() {
               placeholder="Contraseña"
               radius="sm"
               endContent={
-                <Button
-                  variant="light"
-                  onClick={toggleVisibility}
-                  isIconOnly
-                >
+                <Button variant="light" onClick={toggleVisibility} isIconOnly>
                   {isVisible ? <IconEyeOff /> : <IconEye />}
                 </Button>
               }
