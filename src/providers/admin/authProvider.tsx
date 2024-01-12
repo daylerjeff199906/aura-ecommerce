@@ -1,7 +1,14 @@
-import { useEffect } from "react";
+import { useEffect, useContext, createContext } from "react";
 import { useRouter } from "next/navigation";
 import { onAuthStateChanged } from "firebase/auth";
+import { signOut } from "firebase/auth";
 import auth from "@/firebase/auth";
+
+export const authContext = createContext<{
+  handleLogout: () => void;
+}>({
+  handleLogout: () => {},
+});
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const router = useRouter();
@@ -16,5 +23,24 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     return () => unsubscribe();
   }, [router]);
 
-  return <>{children}</>;
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      router.push("/login");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  return (
+    <authContext.Provider
+      value={{
+        handleLogout,
+      }}
+    >
+      {children}
+    </authContext.Provider>
+  );
 };
+
+export const useAuth = () => useContext(authContext);
