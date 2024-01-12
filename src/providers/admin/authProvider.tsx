@@ -1,4 +1,4 @@
-import { useEffect, useContext, createContext } from "react";
+import { useEffect, useState, useContext, createContext } from "react";
 import { useRouter } from "next/navigation";
 import { onAuthStateChanged } from "firebase/auth";
 import { signOut } from "firebase/auth";
@@ -19,9 +19,10 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         router.push("/login"); // Redirige a la página de inicio de sesión si el usuario no está autenticado
       }
     });
-
     return () => unsubscribe();
   }, [router]);
+
+  // if (loading) return <div>Cargando...</div>;
 
   const handleLogout = async () => {
     try {
