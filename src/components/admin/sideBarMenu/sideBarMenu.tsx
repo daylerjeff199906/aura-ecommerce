@@ -112,7 +112,7 @@ export const SiderBarMenu = ({ children }: { children: React.ReactNode }) => {
           </div>
         </div>
       </div>
-      <div className="container">{children}</div>
+      <div className="container p-4">{children}</div>
     </div>
   );
 };
