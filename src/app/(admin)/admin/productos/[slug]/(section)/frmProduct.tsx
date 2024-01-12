@@ -62,21 +62,19 @@ export const FrmProduct = () => {
           }
         />
         <Select label="Categoría" placeholder="Categoría">
-          {categories !== null ? (
-            <>
-              {categories?.map((category) => (
-                <SelectItem
-                  key={category?.id.toString()}
-                  value={category?.id.toString()}
-                >
-                  {category?.name}
-                </SelectItem>
-              ))}
-            </>
+          {categories ? (
+            categories?.map((category) => (
+              <SelectItem key={category?.value} value={category?.value}>
+                {category?.name}
+              </SelectItem>
+            ))
           ) : (
-            <></>
+            <SelectItem key="" value="">
+              {"No hay categorías"}
+            </SelectItem>
           )}
         </Select>
+
         <Input
           label="Precio"
           placeholder="Precio"
