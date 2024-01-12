@@ -8,6 +8,7 @@ import {
   DocumentReference,
   getDoc,
 } from "firebase/firestore";
+import { useDataCategory } from "./useCategories";
 import { IProducts } from "@/types";
 
 const convertDataToIProducts = (data: DocumentData[]) => {
@@ -71,6 +72,7 @@ const convertDataToIProduct = (data: DocumentData) => {
 };
 
 export function useDataProducts() {
+  const { categories, getCategory } = useDataCategory();
   const [loading, setLoading] = useState<boolean>(true);
   const [products, setProducts] = useState<IProducts[] | null>(null);
   const [product, setProduct] = useState<IProducts | null>(null);
