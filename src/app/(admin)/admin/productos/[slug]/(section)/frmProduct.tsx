@@ -14,6 +14,7 @@ import { useProducts } from "@/hooks";
 import { useDataProducts } from "@/hooks";
 import { useDataCategory } from "@/hooks";
 import { IconCircleCheck } from "@tabler/icons-react";
+import Link from "next/link";
 
 export const FrmProduct = ({ id }: { id: string }) => {
   const { getProductById, product: dataProduct } = useDataProducts();
@@ -221,6 +222,8 @@ export const FrmProduct = ({ id }: { id: string }) => {
           </Button>
           <Button
             color="danger"
+            as={Link}
+            href="/admin/productos"
             onClick={handleClearProduct}
             radius={radius}
             variant="ghost"
