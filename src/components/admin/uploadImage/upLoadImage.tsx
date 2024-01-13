@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import { Button, Image } from "@nextui-org/react";
 import { IconPhotoPlus, IconX } from "@tabler/icons-react";
@@ -11,13 +12,11 @@ export const UploadImage = ({ onImageUpload, dataImage }: IProps) => {
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [isUploading, setIsUploading] = useState(false);
 
-  useEffect(() => {
-    if (dataImage) {
-      setPreviewImage(dataImage);
-    }
-  }, [dataImage]);
+  const dropArea = React.useRef<HTMLLabelElement>(null);
+  const fileInput = React.useRef<HTMLInputElement>(null);
 
   const handleImageChange = (file: File) => {
+    console.log(file);
     setIsUploading(true);
     const reader = new FileReader();
     reader.onloadend = () => {
@@ -77,7 +76,7 @@ export const UploadImage = ({ onImageUpload, dataImage }: IProps) => {
           <Image src={previewImage} alt="Preview" className="h-72" />
           <div className="absolute top-0 right-0 z-20">
             <Button
-              onClick={handleRemoveImage}
+              onClick={(e) => handleRemoveImage(e)}
               variant="bordered"
               isIconOnly
               radius="full"

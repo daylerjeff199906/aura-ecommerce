@@ -55,8 +55,8 @@ const itemsMenu = [
 
 export const SiderBarMenu = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="flex gap-6">
-      <div className="w-64 py-4 hidden lg:block">
+    <div className="flex gap-6 ">
+      <div className="w-64 py-4 hidden lg:block bg-white">
         <div className="flex flex-col gap-4">
           <div className="w-full">
             {itemsMenu?.map((item, index) =>
