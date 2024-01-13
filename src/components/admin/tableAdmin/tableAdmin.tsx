@@ -7,49 +7,11 @@ import {
   TableCell,
   TableRow,
   getKeyValue,
+  Button,
 } from "@nextui-org/react";
 
-// const columns = [
-//   {
-//     key: "name",
-//     label: "NAME",
-//   },
-//   {
-//     key: "role",
-//     label: "ROLE",
-//   },
-//   {
-//     key: "status",
-//     label: "STATUS",
-//   },
-// ];
-
-// const rows = [
-//   {
-//     key: "1",
-//     name: "Tony Reichert",
-//     role: "CEO",
-//     status: "Active",
-//   },
-//   {
-//     key: "2",
-//     name: "Zoey Lang",
-//     role: "Technical Lead",
-//     status: "Paused",
-//   },
-//   {
-//     key: "3",
-//     name: "Jane Fisher",
-//     role: "Senior Developer",
-//     status: "Active",
-//   },
-//   {
-//     key: "4",
-//     name: "William Howard",
-//     role: "Community Manager",
-//     status: "Vacation",
-//   },
-// ];
+import { IconEdit, IconTrash, IconEye } from "@tabler/icons-react";
+import Link from "next/link";
 
 interface IProps {
   columns: {
@@ -59,6 +21,7 @@ interface IProps {
   rows: {
     key: string;
     [key: string]: string | React.ReactNode;
+    showImage?: boolean;
   }[];
 }
 
@@ -75,7 +38,36 @@ export const TableAdmin = ({ columns, rows }: IProps) => {
           {(item) => (
             <TableRow key={item.key}>
               {(columnKey) => (
-                <TableCell>{getKeyValue(item, columnKey)}</TableCell>
+                <TableCell>
+                  {columnKey === "actions" ? (
+                    <div className="flex justify-center gap-2">
+                      <Button isIconOnly size="sm" variant="light">
+                        <IconEye />
+                      </Button>
+                      <Button
+                        isIconOnly
+                        size="sm"
+                        variant="light"
+                        color="success"
+                        as={Link}
+                        href={`/admin/productos/edit?id=${item.key}`}
+                      >
+                        <IconEdit />
+                      </Button>
+                      <Button
+                        className=""
+                        isIconOnly
+                        size="sm"
+                        variant="light"
+                        color="danger"
+                      >
+                        <IconTrash />
+                      </Button>
+                    </div>
+                  ) : (
+                    getKeyValue(item, columnKey)
+                  )}
+                </TableCell>
               )}
             </TableRow>
           )}

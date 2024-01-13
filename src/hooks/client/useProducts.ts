@@ -1,4 +1,5 @@
-import { useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect, useState } from "react";
 import { db } from "@/firebase/firebase";
 import {
   collection,
@@ -18,7 +19,6 @@ const convertDataToIProducts = (data: DocumentData[]) => {
       price,
       image,
       description,
-      category,
       discount,
       stock,
       isOffer,
@@ -76,6 +76,10 @@ export function useDataProducts() {
   const [loading, setLoading] = useState<boolean>(true);
   const [products, setProducts] = useState<IProducts[] | null>(null);
   const [product, setProduct] = useState<IProducts | null>(null);
+
+  useEffect(() => {
+    getCategory();
+  }, []);
 
   const getProducts = async () => {
     setLoading(true);

@@ -29,18 +29,17 @@ const columns = [
 
 const rows = [
   {
-    key: "1",
-    product: "Tony Reichert",
-    category: "CEO",
-    price: "Active",
-    stock: "Active",
-    actions: "Active",
+    key: "",
+    product: "",
+    category: "",
+    price: "",
+    stock: "",
+    actions: "",
   },
 ];
 
 export const ListSection = () => {
   const { getProducts, products } = useDataProducts();
-
   useEffect(() => {
     getProducts();
   }, []);
