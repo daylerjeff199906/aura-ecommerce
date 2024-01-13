@@ -27,11 +27,6 @@ export const NavbarAdmin = () => {
       isMenuOpen={isMenuOpen}
       onMenuOpenChange={setIsMenuOpen}
     >
-      <NavbarContent className="sm:hidden" justify="start">
-        <NavbarMenuToggle
-          aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-        />
-      </NavbarContent>
       <NavbarContent>
         <NavbarBrand>
           <Link href="/" color="foreground">
