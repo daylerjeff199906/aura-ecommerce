@@ -29,7 +29,10 @@ export const FrmProduct = ({ id }: { id: string }) => {
     description: "",
     image: "",
     isOffer: false,
-    category: "",
+    category: {
+      id: "",
+      name: "",
+    },
     createdAt: new Date(),
   });
 
@@ -52,7 +55,10 @@ export const FrmProduct = ({ id }: { id: string }) => {
       description: "",
       image: "",
       isOffer: false,
-      category: "",
+      category: {
+        id: "",
+        name: "",
+      },
       createdAt: new Date(),
     });
   };
@@ -77,7 +83,10 @@ export const FrmProduct = ({ id }: { id: string }) => {
         description: dataProduct.description,
         image: dataProduct.image,
         isOffer: dataProduct.isOffer,
-        category: dataProduct.category,
+        category: {
+          id: dataProduct.category.id,
+          name: dataProduct.category.name,
+        },
         createdAt: dataProduct.createdAt,
       });
     }
@@ -87,16 +96,34 @@ export const FrmProduct = ({ id }: { id: string }) => {
     if (message) {
       setTimeout(() => {
         router.push("/admin/productos");
-      }, 2000);
+      }, 1000);
     }
   }, [message]);
 
+  const handleCategory = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const categoria = categories?.find(
+      (category) => category.value === e.target.value
+    );
+    setProduct({
+      ...product,
+      category: {
+        id: e.target.value,
+        name: categoria?.name ?? "",
+      },
+    });
+  };
   return (
     <>
       {loading && (
         <div className="flex gap-2 py-2 items-center">
           <Spinner />
-          <h3>Agregando producto...</h3>
+          <h3>
+            {
+              <span className="animate-pulse">
+                {id ? "Actualizando" : "Agregando"} producto...
+              </span>
+            }
+          </h3>
         </div>
       )}
       {message && (
@@ -134,8 +161,8 @@ export const FrmProduct = ({ id }: { id: string }) => {
           placeholder="Categoría"
           disabled={loading}
           radius={radius}
-          selectedKeys={[product.category]}
-          onChange={(e) => setProduct({ ...product, category: e.target.value })}
+          selectedKeys={[product.category.id]}
+          onChange={(e) => handleCategory(e)}
         >
           {categories ? (
             categories?.map((category) => (

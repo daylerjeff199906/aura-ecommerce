@@ -86,8 +86,6 @@ export function useDataProducts() {
       }));
       setProducts(convertDataToIProducts(products));
       setLoading(false);
-      console.log("Productos obtenidos");
-      console.log(products);
     } catch (error) {
       console.log(error);
     }
