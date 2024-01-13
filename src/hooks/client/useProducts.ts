@@ -10,7 +10,11 @@ import {
   getDoc,
 } from "firebase/firestore";
 import { useDataCategory } from "./useCategories";
-import { IProducts } from "@/types";
+import { IProducts, ICategory } from "@/types";
+
+const findCategory = (categories: ICategory[] | null, id: string) => {
+  return categories?.find((category) => category.id === id);
+};
 
 const convertDataToIProducts = (data: DocumentData[]) => {
   return data?.map((product) => {
@@ -21,11 +25,13 @@ const convertDataToIProducts = (data: DocumentData[]) => {
       description,
       discount,
       stock,
+      category,
       isOffer,
       createdAt,
     } = product;
 
     const id = product?.id;
+    // const categoria = product?.category;
 
     return {
       id: id,
@@ -34,7 +40,7 @@ const convertDataToIProducts = (data: DocumentData[]) => {
       image: image,
       isOffer: isOffer,
       description: description,
-      category: "",
+      category: category,
       discount: discount,
       stock: stock,
       createdAt: createdAt,
@@ -77,20 +83,22 @@ export function useDataProducts() {
   const [products, setProducts] = useState<IProducts[] | null>(null);
   const [product, setProduct] = useState<IProducts | null>(null);
 
-  useEffect(() => {
-    getCategory();
-  }, []);
+  // useEffect(() => {
+  //   getCategory();
+  // }, []);
 
   const getProducts = async () => {
     setLoading(true);
     try {
       const querySnapshot = await getDocs(collection(db, "products"));
       const products = querySnapshot?.docs?.map((doc) => ({
-        id: doc.id,
+        id: doc.id.toString(),
         ...doc.data(),
       }));
       setProducts(convertDataToIProducts(products));
       setLoading(false);
+      console.log("Productos obtenidos");
+      console.log(products);
     } catch (error) {
       console.log(error);
     }
@@ -104,7 +112,6 @@ export function useDataProducts() {
         id
       );
       const productDoc = await getDoc(productRef);
-
       if (productDoc.exists()) {
         const product = {
           id: productDoc.id,

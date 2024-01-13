@@ -47,6 +47,7 @@ export function useDataCategory() {
         id: doc.id.toString(),
         ...doc.data(),
       }));
+
       setCategories(convertDataToICategory(categories));
       setLoading(false);
     } catch (error) {
