@@ -51,42 +51,56 @@ export const UploadImage = ({ onImageUpload, dataImage }: IProps) => {
 
   return (
     <label
-      className="border-3 border-dashed border-blue-400 rounded-lg p-4 max-w-sm w-full hover:bg-zinc-100"
+      className="border-3 border-dashed  border-blue-400 rounded-lg p-4 max-w-sm w-full "
       onDragOver={handleDragOver}
       onDrop={handleDrop}
     >
-      <input
-        type="file"
-        accept="image/*"
-        style={{ display: "none" }}
-        onChange={(e) => e.target.files && handleImageChange(e.target.files[0])}
-      />
-      {!previewImage && !isUploading && (
-        <div className="flex items-center justify-center h-full text-slate-400 cursor-pointer">
-          <IconPhotoPlus size={148} stroke={1} />
-        </div>
-      )}
-      {isUploading && (
-        <div className="flex items-center justify-center h-full text-slate-400">
-          Subiendo...
-        </div>
-      )}
-      {previewImage && !isUploading && (
-        <div className="relative flex items-center justify-center w-full h-full">
-          <Image src={previewImage} alt="Preview" className="h-72" />
-          <div className="absolute top-0 right-0 z-20">
-            <Button
-              onClick={(e) => handleRemoveImage(e)}
-              variant="bordered"
-              isIconOnly
-              radius="full"
-              className="bg-white"
-            >
-              <IconX />
-            </Button>
+      <div className="hover:bg-zinc-100 h-full rounded-lg">
+        <input
+          type="file"
+          accept="image/*"
+          style={{ display: "none" }}
+          onChange={(e) =>
+            e.target.files && handleImageChange(e.target.files[0])
+          }
+        />
+        {!previewImage && !isUploading && (
+          <div className="p-6 flex items-center justify-center h-full text-slate-400 cursor-pointer">
+            <div className="text-center">
+              <div className="flex justify-center p-4 bg-zinc-200 rounded-full">
+                <IconPhotoPlus size={84} stroke={1} />
+              </div>
+              <h1 className="text-lg font-bold">
+                Agregar foto <br />
+                <span className="text-sm font-normal">
+                  o arrastrar y soltar
+                </span>
+              </h1>
+            </div>
           </div>
-        </div>
-      )}
+        )}
+        {isUploading && (
+          <div className="flex items-center justify-center h-full text-slate-400">
+            Subiendo...
+          </div>
+        )}
+        {previewImage && !isUploading && (
+          <div className="relative flex items-center justify-center w-full h-full">
+            <Image src={previewImage} alt="Preview" className="h-72" />
+            <div className="absolute top-0 right-0 z-20">
+              <Button
+                onClick={(e) => handleRemoveImage(e)}
+                variant="bordered"
+                isIconOnly
+                radius="full"
+                className="bg-white"
+              >
+                <IconX />
+              </Button>
+            </div>
+          </div>
+        )}
+      </div>
     </label>
   );
 };
