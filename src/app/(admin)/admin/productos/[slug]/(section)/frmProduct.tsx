@@ -11,10 +11,12 @@ import {
   Spinner,
 } from "@nextui-org/react";
 import { useProducts } from "@/hooks";
+import { useDataProducts } from "@/hooks";
 import { useDataCategory } from "@/hooks";
 import { IconCircleCheck } from "@tabler/icons-react";
 
-export const FrmProduct = () => {
+export const FrmProduct = ({ id }: { id: string }) => {
+  const { getProductById, product: dataProduct } = useDataProducts();
   const { addProduct, loading, message } = useProducts();
   const { categories, getCategory } = useDataCategory();
   const router = useRouter();
@@ -54,6 +56,28 @@ export const FrmProduct = () => {
   useEffect(() => {
     getCategory();
   }, []);
+
+  useEffect(() => {
+    if (id) {
+      getProductById(id);
+    }
+  }, [id]);
+
+  useEffect(() => {
+    if (dataProduct) {
+      setProduct({
+        name: dataProduct.name,
+        price: dataProduct.price.toString(),
+        stock: dataProduct.stock,
+        discount: dataProduct.discount,
+        description: dataProduct.description,
+        image: dataProduct.image,
+        isOffer: dataProduct.isOffer,
+        category: dataProduct.category,
+        createdAt: dataProduct.createdAt,
+      });
+    }
+  }, [dataProduct]);
 
   useEffect(() => {
     if (message) {

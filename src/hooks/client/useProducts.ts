@@ -106,7 +106,10 @@ export function useDataProducts() {
       const productDoc = await getDoc(productRef);
 
       if (productDoc.exists()) {
-        const product = productDoc.data();
+        const product = {
+          id: productDoc.id,
+          ...productDoc.data(),
+        };
         setProduct(convertDataToIProduct(product));
       } else {
         console.log("No such document!");
