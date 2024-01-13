@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { db } from "@/firebase/firebase";
 import {
   collection,
@@ -9,12 +9,7 @@ import {
   DocumentReference,
   getDoc,
 } from "firebase/firestore";
-import { useDataCategory } from "./useCategories";
 import { IProducts, ICategory } from "@/types";
-
-const findCategory = (categories: ICategory[] | null, id: string) => {
-  return categories?.find((category) => category.id === id);
-};
 
 const convertDataToIProducts = (data: DocumentData[]) => {
   return data?.map((product) => {
@@ -31,7 +26,6 @@ const convertDataToIProducts = (data: DocumentData[]) => {
     } = product;
 
     const id = product?.id;
-    // const categoria = product?.category;
 
     return {
       id: id,
@@ -70,7 +64,7 @@ const convertDataToIProduct = (data: DocumentData) => {
     image: image,
     isOffer: isOffer,
     description: description,
-    category: "",
+    category: category,
     discount: discount,
     stock: stock,
     createdAt: createdAt,
@@ -78,14 +72,9 @@ const convertDataToIProduct = (data: DocumentData) => {
 };
 
 export function useDataProducts() {
-  const { categories, getCategory } = useDataCategory();
   const [loading, setLoading] = useState<boolean>(true);
   const [products, setProducts] = useState<IProducts[] | null>(null);
   const [product, setProduct] = useState<IProducts | null>(null);
-
-  // useEffect(() => {
-  //   getCategory();
-  // }, []);
 
   const getProducts = async () => {
     setLoading(true);

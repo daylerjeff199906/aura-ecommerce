@@ -55,7 +55,7 @@ export const ListSection = () => {
                 return {
                   key: product.id,
                   product: product.name,
-                  category: product.category,
+                  category: product.category.name,
                   price: product.price,
                   stock: product.stock,
                   actions: "Active",
