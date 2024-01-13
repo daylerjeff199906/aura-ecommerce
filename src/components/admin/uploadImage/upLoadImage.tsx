@@ -15,6 +15,12 @@ export const UploadImage = ({ onImageUpload, dataImage }: IProps) => {
   const dropAreaRef = useRef<HTMLLabelElement | null>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
+  useEffect(() => {
+    if (dataImage) {
+      setPreviewImage(dataImage);
+    }
+  }, [dataImage]);
+
   const handleImageChange = (file: File) => {
     setIsUploading(true);
     const reader = new FileReader();
