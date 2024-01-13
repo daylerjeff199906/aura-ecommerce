@@ -11,11 +11,13 @@ import {
   Spinner,
 } from "@nextui-org/react";
 import { useProducts } from "@/hooks";
+import { useDataProducts } from "@/hooks";
 import { useDataCategory } from "@/hooks";
 import { IconCircleCheck } from "@tabler/icons-react";
 
-export const FrmProduct = () => {
-  const { addProduct, loading, message } = useProducts();
+export const FrmProduct = ({ id }: { id: string }) => {
+  const { getProductById, product: dataProduct } = useDataProducts();
+  const { addProduct, editProduct, loading, message } = useProducts();
   const { categories, getCategory } = useDataCategory();
   const router = useRouter();
 
@@ -34,7 +36,11 @@ export const FrmProduct = () => {
   const radius = "sm";
 
   const handleAddProduct = () => {
-    addProduct(product);
+    if (id) {
+      editProduct(id, product);
+    } else {
+      addProduct(product);
+    }
   };
 
   const handleClearProduct = () => {
@@ -54,6 +60,28 @@ export const FrmProduct = () => {
   useEffect(() => {
     getCategory();
   }, []);
+
+  useEffect(() => {
+    if (id) {
+      getProductById(id);
+    }
+  }, [id]);
+
+  useEffect(() => {
+    if (dataProduct) {
+      setProduct({
+        name: dataProduct.name,
+        price: dataProduct.price.toString(),
+        stock: dataProduct.stock,
+        discount: dataProduct.discount,
+        description: dataProduct.description,
+        image: dataProduct.image,
+        isOffer: dataProduct.isOffer,
+        category: dataProduct.category,
+        createdAt: dataProduct.createdAt,
+      });
+    }
+  }, [dataProduct]);
 
   useEffect(() => {
     if (message) {
@@ -83,6 +111,7 @@ export const FrmProduct = () => {
         <Input
           radius={radius}
           label="Nombre"
+          aria-label="Nombre"
           placeholder="Nombre"
           value={product.name}
           disabled={loading}
@@ -91,6 +120,7 @@ export const FrmProduct = () => {
         <Textarea
           radius={radius}
           label="Descripción"
+          aria-label="Descripción"
           placeholder="Descripción"
           value={product.description}
           disabled={loading}
@@ -100,6 +130,7 @@ export const FrmProduct = () => {
         />
         <Select
           label="Categoría"
+          aria-label="Categoría"
           placeholder="Categoría"
           disabled={loading}
           radius={radius}
@@ -122,6 +153,7 @@ export const FrmProduct = () => {
         <div className="flex gap-4">
           <Input
             radius={radius}
+            arial-label="Precio"
             disabled={loading}
             label="Precio"
             placeholder="Precio"
@@ -142,7 +174,8 @@ export const FrmProduct = () => {
           <Input
             radius={radius}
             disabled={loading}
-            label="Discount"
+            label="Descuento"
+            aria-label="Descuento"
             placeholder="discount"
             value={product.discount.toString()}
             onChange={(e) =>
@@ -157,9 +190,14 @@ export const FrmProduct = () => {
             radius={radius}
             disabled={loading}
           >
-            Guardar
+            {id ? "Guardar cambios" : "Agregar"}
           </Button>
-          <Button color="danger" onClick={handleClearProduct} radius={radius}>
+          <Button
+            color="danger"
+            onClick={handleClearProduct}
+            radius={radius}
+            variant="ghost"
+          >
             Cancelar
           </Button>
         </div>

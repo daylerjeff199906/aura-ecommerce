@@ -1,6 +1,13 @@
 import { useState } from "react";
 import { db } from "@/firebase/firebase";
-import { collection, getDocs, DocumentData } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  DocumentData,
+  doc,
+  DocumentReference,
+  getDoc,
+} from "firebase/firestore";
 import { ICategory } from "@/types";
 
 const convertDataToICategory = (data: DocumentData[]) => {
@@ -16,9 +23,21 @@ const convertDataToICategory = (data: DocumentData[]) => {
   });
 };
 
+const convertDataToICategoryById = (data: DocumentData) => {
+  const { name, image } = data;
+  const id = data?.id;
+  return {
+    id: id,
+    value: id,
+    name,
+    image,
+  };
+};
+
 export function useDataCategory() {
   const [loading, setLoading] = useState<boolean>(true);
   const [categories, setCategories] = useState<ICategory[] | null>(null);
+  const [category, setCategory] = useState<ICategory | null>(null);
 
   const getCategory = async () => {
     setLoading(true);
@@ -35,5 +54,27 @@ export function useDataCategory() {
     }
   };
 
-  return { loading, categories, getCategory };
+  const getCategoryById = async (id: string) => {
+    setLoading(true);
+    try {
+      const categoryRef: DocumentReference<DocumentData> = doc(
+        db,
+        "categories",
+        id
+      );
+      const categoryDoc = await getDoc(categoryRef);
+
+      if (!categoryDoc.exists()) {
+        console.log("No such document!");
+      } else {
+        const category = categoryDoc.data();
+        setLoading(false);
+        setCategory(convertDataToICategoryById(category));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  return { loading, categories, getCategory, category, getCategoryById };
 }

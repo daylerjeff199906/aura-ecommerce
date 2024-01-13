@@ -1,4 +1,5 @@
-import { useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect, useState } from "react";
 import { db } from "@/firebase/firebase";
 import {
   collection,
@@ -8,6 +9,7 @@ import {
   DocumentReference,
   getDoc,
 } from "firebase/firestore";
+import { useDataCategory } from "./useCategories";
 import { IProducts } from "@/types";
 
 const convertDataToIProducts = (data: DocumentData[]) => {
@@ -17,7 +19,6 @@ const convertDataToIProducts = (data: DocumentData[]) => {
       price,
       image,
       description,
-      category,
       discount,
       stock,
       isOffer,
@@ -71,9 +72,14 @@ const convertDataToIProduct = (data: DocumentData) => {
 };
 
 export function useDataProducts() {
+  const { categories, getCategory } = useDataCategory();
   const [loading, setLoading] = useState<boolean>(true);
   const [products, setProducts] = useState<IProducts[] | null>(null);
   const [product, setProduct] = useState<IProducts | null>(null);
+
+  useEffect(() => {
+    getCategory();
+  }, []);
 
   const getProducts = async () => {
     setLoading(true);
@@ -100,7 +106,10 @@ export function useDataProducts() {
       const productDoc = await getDoc(productRef);
 
       if (productDoc.exists()) {
-        const product = productDoc.data();
+        const product = {
+          id: productDoc.id,
+          ...productDoc.data(),
+        };
         setProduct(convertDataToIProduct(product));
       } else {
         console.log("No such document!");

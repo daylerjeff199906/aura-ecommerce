@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { db } from "@/firebase/firebase";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, updateDoc, doc } from "firebase/firestore";
 
 export function useProducts() {
   const [loading, setLoading] = useState(false);
@@ -27,5 +27,18 @@ export function useProducts() {
     }
   };
 
-  return { addProduct, loading, message };
+  const editProduct = async (productId: string, updatedProduct: any) => {
+    setLoading(true);
+    try {
+      const productDocRef = doc(db, "products", productId);
+      await updateDoc(productDocRef, updatedProduct);
+      setMessage("Producto editado correctamente");
+      setLoading(false);
+    } catch (e) {
+      console.error("Error adding document: ", e);
+      setLoading(false);
+    }
+  };
+
+  return { addProduct, editProduct, loading, message };
 }
