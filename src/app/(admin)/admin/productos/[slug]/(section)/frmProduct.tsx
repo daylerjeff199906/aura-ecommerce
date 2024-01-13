@@ -17,7 +17,7 @@ import { IconCircleCheck } from "@tabler/icons-react";
 
 export const FrmProduct = ({ id }: { id: string }) => {
   const { getProductById, product: dataProduct } = useDataProducts();
-  const { addProduct, loading, message } = useProducts();
+  const { addProduct, editProduct, loading, message } = useProducts();
   const { categories, getCategory } = useDataCategory();
   const router = useRouter();
 
@@ -36,7 +36,11 @@ export const FrmProduct = ({ id }: { id: string }) => {
   const radius = "sm";
 
   const handleAddProduct = () => {
-    addProduct(product);
+    if (id) {
+      editProduct(id, product);
+    } else {
+      addProduct(product);
+    }
   };
 
   const handleClearProduct = () => {
@@ -186,9 +190,14 @@ export const FrmProduct = ({ id }: { id: string }) => {
             radius={radius}
             disabled={loading}
           >
-            Guardar
+            {id ? "Guardar cambios" : "Agregar"}
           </Button>
-          <Button color="danger" onClick={handleClearProduct} radius={radius}>
+          <Button
+            color="danger"
+            onClick={handleClearProduct}
+            radius={radius}
+            variant="ghost"
+          >
             Cancelar
           </Button>
         </div>
