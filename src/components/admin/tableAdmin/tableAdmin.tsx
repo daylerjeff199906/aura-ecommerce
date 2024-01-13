@@ -14,6 +14,7 @@ import { IconEdit, IconTrash, IconEye } from "@tabler/icons-react";
 import Link from "next/link";
 
 interface IProps {
+  url_base?: string;
   columns: {
     key: string;
     label: string;
@@ -25,7 +26,7 @@ interface IProps {
   }[];
 }
 
-export const TableAdmin = ({ columns, rows }: IProps) => {
+export const TableAdmin = ({ columns, rows, url_base }: IProps) => {
   return (
     <>
       <Table aria-label="Table with dynamic content">
@@ -50,7 +51,7 @@ export const TableAdmin = ({ columns, rows }: IProps) => {
                         variant="light"
                         color="success"
                         as={Link}
-                        href={`/admin/productos/edit?id=${item.key}`}
+                        href={`/admin/${url_base}/edit?id=${item.key}`}
                       >
                         <IconEdit />
                       </Button>

@@ -47,6 +47,7 @@ export const ListSection = () => {
   return (
     <>
       <TableAdmin
+        url_base="productos"
         columns={columns}
         rows={
           products
