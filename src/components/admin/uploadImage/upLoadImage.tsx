@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Button, Image } from "@nextui-org/react";
 import { IconPhotoPlus, IconX } from "@tabler/icons-react";
 
@@ -12,11 +12,10 @@ export const UploadImage = ({ onImageUpload, dataImage }: IProps) => {
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [isUploading, setIsUploading] = useState(false);
 
-  const dropArea = React.useRef<HTMLLabelElement>(null);
-  const fileInput = React.useRef<HTMLInputElement>(null);
+  const dropAreaRef = useRef<HTMLLabelElement | null>(null);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleImageChange = (file: File) => {
-    console.log(file);
     setIsUploading(true);
     const reader = new FileReader();
     reader.onloadend = () => {
@@ -28,8 +27,14 @@ export const UploadImage = ({ onImageUpload, dataImage }: IProps) => {
     onImageUpload(file);
   };
 
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      handleImageChange(file);
+    }
+  };
+
   const handleRemoveImage = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.stopPropagation();
     setPreviewImage(null);
     // Puedes agregar lógica adicional para manejar la eliminación de la imagen
   };
@@ -52,15 +57,18 @@ export const UploadImage = ({ onImageUpload, dataImage }: IProps) => {
   return (
     <div className="max-w-sm w-full">
       <div className="w-full h-full max-h-80  border-blue-400 border-3 border-dashed rounded-lg p-4">
-        <label onDragOver={handleDragOver} onDrop={handleDrop}>
+        <label
+          onDragOver={handleDragOver}
+          onDrop={handleDrop}
+          ref={dropAreaRef}
+        >
           <div className="hover:bg-zinc-100 h-full rounded-lg">
             <input
+              ref={fileInputRef}
               type="file"
               accept="image/*"
               style={{ display: "none" }}
-              onChange={(e) =>
-                e.target.files && handleImageChange(e.target.files[0])
-              }
+              onChange={handleFileChange}
             />
             {!previewImage && !isUploading && (
               <div className="p-6 flex items-center justify-center h-full text-slate-400 cursor-pointer">
