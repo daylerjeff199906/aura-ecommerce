@@ -8,8 +8,10 @@ import {
   doc,
   DocumentReference,
   getDoc,
+  query,
+  where,
 } from "firebase/firestore";
-import { IProducts, ICategory } from "@/types";
+import { IProducts } from "@/types";
 
 const convertDataToIProducts = (data: DocumentData[]) => {
   return data?.map((product) => {
@@ -74,6 +76,9 @@ const convertDataToIProduct = (data: DocumentData) => {
 export function useDataProducts() {
   const [loading, setLoading] = useState<boolean>(true);
   const [products, setProducts] = useState<IProducts[] | null>(null);
+  const [productsActive, setProductsActive] = useState<IProducts[] | null>(
+    null
+  );
   const [product, setProduct] = useState<IProducts | null>(null);
 
   const getProducts = async () => {
@@ -85,6 +90,23 @@ export function useDataProducts() {
         ...doc.data(),
       }));
       setProducts(convertDataToIProducts(products));
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getProductsActive = async () => {
+    setLoading(true);
+    try {
+      const querySnapshot = await getDocs(
+        query(collection(db, "products"), where("isActive", "==", true))
+      );
+      const products = querySnapshot?.docs?.map((doc) => ({
+        id: doc.id.toString(),
+        ...doc.data(),
+      }));
+      setProductsActive(convertDataToIProducts(products));
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -113,5 +135,13 @@ export function useDataProducts() {
     }
   };
 
-  return { loading, products, getProducts, getProductById, product };
+  return {
+    loading,
+    getProducts,
+    getProductsActive,
+    products,
+    productsActive,
+    getProductById,
+    product,
+  };
 }
