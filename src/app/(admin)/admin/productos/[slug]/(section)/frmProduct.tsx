@@ -215,7 +215,7 @@ export const FrmProduct = ({
             color="primary"
             onClick={handleAddProduct}
             radius={radius}
-            disabled={loading}
+            isDisabled={loading}
           >
             {dataProduct ? "Guardar cambios" : "Agregar"}
           </Button>
