@@ -117,7 +117,7 @@ export const FrmProduct = ({ id }: { id: string }) => {
     });
   };
   return (
-    <>
+    <div className="w-full">
       {loading && (
         <div className="flex gap-2 py-2 items-center">
           <Spinner />
@@ -235,6 +235,6 @@ export const FrmProduct = ({ id }: { id: string }) => {
           </Button>
         </div>
       </div>
-    </>
+    </div>
   );
 };
