@@ -22,6 +22,10 @@ const columns = [
     label: "Stock",
   },
   {
+    key: "isActive",
+    label: "Activo?",
+  },
+  {
     key: "actions",
     label: "Acciones",
   },
@@ -34,6 +38,7 @@ const rows = [
     category: "",
     price: "",
     stock: "",
+    isActive: "",
     actions: "",
   },
 ];
@@ -58,6 +63,7 @@ export const ListSection = () => {
                   category: product.category.name,
                   price: product.price,
                   stock: product.stock,
+                  isActive: product.isActive ? "Si" : "No",
                   actions: "Active",
                 };
               })

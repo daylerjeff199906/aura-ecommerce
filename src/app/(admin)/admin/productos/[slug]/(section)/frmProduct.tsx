@@ -30,6 +30,7 @@ export const FrmProduct = ({ id }: { id: string }) => {
     description: "",
     image: "",
     isOffer: false,
+    isActive: false,
     category: {
       id: "",
       name: "",
@@ -56,6 +57,7 @@ export const FrmProduct = ({ id }: { id: string }) => {
       description: "",
       image: "",
       isOffer: false,
+      isActive: false,
       category: {
         id: "",
         name: "",
@@ -84,6 +86,7 @@ export const FrmProduct = ({ id }: { id: string }) => {
         description: dataProduct.description,
         image: dataProduct.image,
         isOffer: dataProduct.isOffer,
+        isActive: dataProduct.isActive,
         category: {
           id: dataProduct.category.id,
           name: dataProduct.category.name,

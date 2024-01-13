@@ -9,6 +9,7 @@ export interface IProducts {
     name: string;
   };
   isOffer: boolean;
+  isActive: boolean;
   // quantity: number;
   discount: number;
   // discountPrice?: number;

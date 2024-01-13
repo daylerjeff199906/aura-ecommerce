@@ -24,6 +24,7 @@ const convertDataToIProducts = (data: DocumentData[]) => {
       stock,
       category,
       isOffer,
+      isActive,
       createdAt,
     } = product;
 
@@ -35,6 +36,7 @@ const convertDataToIProducts = (data: DocumentData[]) => {
       price: price,
       image: image,
       isOffer: isOffer,
+      isActive: isActive,
       description: description,
       category: category,
       discount: discount,
@@ -54,6 +56,7 @@ const convertDataToIProduct = (data: DocumentData) => {
     discount,
     stock,
     isOffer,
+    isActive,
     createdAt,
   } = data;
 
@@ -65,6 +68,7 @@ const convertDataToIProduct = (data: DocumentData) => {
     price: price,
     image: image,
     isOffer: isOffer,
+    isActive: isActive,
     description: description,
     category: category,
     discount: discount,
