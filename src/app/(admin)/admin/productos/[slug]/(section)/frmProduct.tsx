@@ -2,6 +2,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import {
   Button,
   Input,
@@ -10,14 +11,15 @@ import {
   SelectItem,
   Spinner,
 } from "@nextui-org/react";
-import { useProducts } from "@/hooks";
-import { useDataProducts } from "@/hooks";
-import { useDataCategory } from "@/hooks";
+import { useProducts, useDataCategory } from "@/hooks";
 import { IconCircleCheck } from "@tabler/icons-react";
-import Link from "next/link";
+import { IProducts } from "@/types";
 
-export const FrmProduct = ({ id }: { id: string }) => {
-  const { getProductById, product: dataProduct } = useDataProducts();
+export const FrmProduct = ({
+  dataProduct,
+}: {
+  dataProduct: IProducts | null;
+}) => {
   const { addProduct, editProduct, loading, message } = useProducts();
   const { categories, getCategory } = useDataCategory();
   const router = useRouter();
@@ -41,8 +43,8 @@ export const FrmProduct = ({ id }: { id: string }) => {
   const radius = "sm";
 
   const handleAddProduct = () => {
-    if (id) {
-      editProduct(id, product);
+    if (dataProduct?.id) {
+      editProduct(dataProduct?.id, product);
     } else {
       addProduct(product);
     }
@@ -69,12 +71,6 @@ export const FrmProduct = ({ id }: { id: string }) => {
   useEffect(() => {
     getCategory();
   }, []);
-
-  useEffect(() => {
-    if (id) {
-      getProductById(id);
-    }
-  }, [id]);
 
   useEffect(() => {
     if (dataProduct) {
@@ -124,7 +120,7 @@ export const FrmProduct = ({ id }: { id: string }) => {
           <h3>
             {
               <span className="animate-pulse">
-                {id ? "Actualizando" : "Agregando"} producto...
+                {dataProduct?.id ? "Actualizando" : "Agregando"} producto...
               </span>
             }
           </h3>
@@ -221,7 +217,7 @@ export const FrmProduct = ({ id }: { id: string }) => {
             radius={radius}
             disabled={loading}
           >
-            {id ? "Guardar cambios" : "Agregar"}
+            {dataProduct ? "Guardar cambios" : "Agregar"}
           </Button>
           <Button
             color="danger"
