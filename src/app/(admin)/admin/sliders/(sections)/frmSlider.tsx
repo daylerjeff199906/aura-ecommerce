@@ -11,8 +11,9 @@ export const FrmSlider = () => {
   const { getParams, updateFilter } = useFilterFromUrl();
   const { getSliderById, slider } = useDataSlider();
   const { addSlider, updateSlider, uploadImage, loading, message } =
-    useSliders();
-  const [frmSlider, setFrmSlider] = useState({
+    useFunctionsSliders();
+  
+    const [frmSlider, setFrmSlider] = useState({
     name: "",
     tag: "",
     image: "",
