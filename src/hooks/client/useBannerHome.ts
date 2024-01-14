@@ -7,7 +7,11 @@ const convertDataToISliders = (data: DocumentData[]) => {
   return data?.map((slider) => {
     const { image, name, tag, isActive, createdAt } = slider;
     const id = slider?.id;
-    const fModificacion = slider?.updatedAt?.toDate().toString();
+    
+    const fModificacion = slider?.updatedAt?.toDate().toString().slice(0, 15);
+    // acortar la fecha de modificacion
+
+
     return {
       id: id,
       image,
