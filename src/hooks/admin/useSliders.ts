@@ -28,5 +28,17 @@ export function useSliders() {
     }
   };
 
-  return { loading, message, addSlider };
+  const updateSlider = async (updateSlider: any, id: string) => {
+    setLoading(true);
+    try {
+      await updateDoc(doc(db, "slider", id), updateSlider);
+      setMessage("Slider actualizado correctamente");
+      setLoading(false);
+    } catch (e) {
+      console.error("Error updating document: ", e);
+      setLoading(false);
+    }
+  };
+
+  return { loading, message, addSlider, updateSlider };
 }

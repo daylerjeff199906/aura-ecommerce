@@ -31,10 +31,9 @@ const convertDataToISliders = (data: DocumentData[]) => {
 };
 
 const convertDataToISlidersById = (data: DocumentData) => {
-  const { image, name, tag, isActive, createdAt } = data;
+  const { image, name, tag, isActive, createdAt, updatedAt } = data;
   const id = data?.id;
 
-  const fModificacion = data?.updatedAt?.toDate().toString().slice(0, 15);
   // acortar la fecha de modificacion
 
   return {
@@ -44,7 +43,7 @@ const convertDataToISlidersById = (data: DocumentData) => {
     tag,
     isActive,
     createdAt,
-    updatedAt: fModificacion,
+    updatedAt,
   };
 };
 

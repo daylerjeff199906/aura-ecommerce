@@ -1,26 +1,146 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import { useState, useEffect } from "react";
 import { UploadImage } from "@/components";
-import { Input } from "@nextui-org/react";
-import { useFilterFromUrl } from "@/hooks";
+import { Button, Input, Spinner } from "@nextui-org/react";
+import { useFilterFromUrl, useDataSlider, useSliders } from "@/hooks";
+import { IconCircleCheck } from "@tabler/icons-react";
 
 export const FrmSlider = () => {
-  const { getParams } = useFilterFromUrl();
-  const [slider, setSlider] = useState({
+  const { getParams, updateFilter } = useFilterFromUrl();
+  const { getSliderById, slider } = useDataSlider();
+  const { updateSlider, loading, message } = useSliders();
+  const [frmSlider, setFrmSlider] = useState({
     name: "",
     tag: "",
     image: "",
-    updatedAt: "",
+    updatedAt: new Date(),
   });
 
   const id = getParams("edit", "");
 
+  useEffect(() => {
+    if (id) {
+      getSliderById(id);
+    }
+  }, [id]);
+
+  useEffect(() => {
+    if (slider) {
+      setFrmSlider({
+        name: slider.name,
+        tag: slider.tag,
+        image: slider.image,
+        updatedAt: slider?.updatedAt,
+      });
+    }
+  }, [slider]);
+
+  useEffect(() => {
+    if (message) {
+      setTimeout(() => {
+        handleCancel();
+      }, 1000);
+    }
+  }, [message]);
+
+  const handleCancel = () => {
+    if (id) {
+      updateFilter("edit", "");
+    }
+    setFrmSlider({
+      name: "",
+      tag: "",
+      image: "",
+      updatedAt: new Date(),
+    });
+  };
+
+  const handleUpdateOrAdd = async () => {
+    if (id) {
+      updateSlider(frmSlider, id);
+    } else {
+      //   updateSlider("", frmSlider);
+    }
+  };
+
   return (
     <div className="space-y-4">
-      <h1 className="text-sm font-medium text-zinc-500">Agregar slider</h1>
+      <div className="space-y-2">
+        <h1 className="text-sm font-medium text-zinc-500">
+          {id ? "Editar" : "Agregar"} slider
+        </h1>
+        {id && (
+          <h3 className="text-xs">
+            Ultima modificación:{" "}
+            {new Intl.DateTimeFormat("es-ES").format(frmSlider.updatedAt)}
+          </h3>
+        )}
+      </div>
+      {loading && (
+        <div className="flex gap-2 py-2 items-center">
+          <Spinner />
+          <h3 className="mb-2">
+            {
+              <span className="animate-pulse">
+                {id ? "Actualizando" : "Agregando"} producto...
+              </span>
+            }
+          </h3>
+        </div>
+      )}
+      {message && (
+        <div className="flex gap-2 p-2 mb-4  items-center bg-green-100">
+          <div className="text-green-500">
+            <IconCircleCheck size={24} />
+          </div>
+          <h3>{message}</h3>
+        </div>
+      )}
       <div className="space-y-3">
-        <Input placeholder="Nombre" />
-        <Input placeholder="Tag" />
+        <Input
+          label="Nombre"
+          placeholder="Escribe el nombre"
+          value={frmSlider.name}
+          disabled={loading}
+          onChange={(e) => {
+            setFrmSlider({
+              ...frmSlider,
+              name: e.target.value,
+            });
+          }}
+        />
+        <Input
+          placeholder="Tag"
+          label="Escribe una etiqueta"
+          value={frmSlider.tag}
+          disabled={loading}
+          onChange={(e) => {
+            setFrmSlider({
+              ...frmSlider,
+              tag: e.target.value,
+            });
+          }}
+        />
+        <div className="flex items-center gap-2">
+          <Button
+            color="primary"
+            onClick={() => {
+              handleUpdateOrAdd();
+            }}
+          >
+            {id ? "Actualizar" : "Agregar"}
+          </Button>
+          <Button
+            color="danger"
+            variant="ghost"
+            onClick={() => {
+              handleCancel();
+            }}
+          >
+            Cancelar
+          </Button>
+        </div>
       </div>
       {id && (
         <div>
