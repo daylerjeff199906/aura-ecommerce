@@ -3,6 +3,7 @@ export interface ISliders {
   image: string;
   name: string;
   tag: string;
+  isActive?: boolean;
   createdAt?: Date;
   updatedAt?: Date;
 }
