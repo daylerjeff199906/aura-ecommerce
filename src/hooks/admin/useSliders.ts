@@ -40,5 +40,21 @@ export function useSliders() {
     }
   };
 
-  return { loading, message, addSlider, updateSlider };
+  const uploadImage = async (file: File): Promise<string> => {
+    setLoading(true);
+    try {
+      const storageRef = ref(storage, `aurora-ecommerce/slider/${file.name}`);
+      await uploadBytes(storageRef, file);
+
+      const url = await getDownloadURL(storageRef);
+      setLoading(false);
+      return url;
+    } catch (e) {
+      console.error("Error uploading image: ", e);
+      setLoading(false);
+      return "";
+    }
+  };
+
+  return { loading, message, addSlider, updateSlider, uploadImage };
 }

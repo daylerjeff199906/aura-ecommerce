@@ -9,11 +9,13 @@ import { IconCircleCheck } from "@tabler/icons-react";
 export const FrmSlider = () => {
   const { getParams, updateFilter } = useFilterFromUrl();
   const { getSliderById, slider } = useDataSlider();
-  const { updateSlider, loading, message } = useSliders();
+  const { addSlider, updateSlider, uploadImage, loading, message } =
+    useSliders();
   const [frmSlider, setFrmSlider] = useState({
     name: "",
     tag: "",
     image: "",
+    isActive: false,
     updatedAt: new Date(),
   });
 
@@ -30,6 +32,7 @@ export const FrmSlider = () => {
       setFrmSlider({
         name: slider.name,
         tag: slider.tag,
+        isActive: slider.isActive,
         image: slider.image,
         updatedAt: slider?.updatedAt,
       });
@@ -52,6 +55,7 @@ export const FrmSlider = () => {
       name: "",
       tag: "",
       image: "",
+      isActive: false,
       updatedAt: new Date(),
     });
   };
@@ -60,7 +64,16 @@ export const FrmSlider = () => {
     if (id) {
       updateSlider(frmSlider, id);
     } else {
-      //   updateSlider("", frmSlider);
+      addSlider(frmSlider);
+    }
+  };
+
+  const handleUploadImage = async (image: File) => {
+    const urlImage = await uploadImage(image);
+    await setFrmSlider({ ...frmSlider, image: urlImage });
+    if (id) {
+      updateSlider({ ...frmSlider, image: urlImage }, id);
+      await getSliderById(id);
     }
   };
 
@@ -148,8 +161,10 @@ export const FrmSlider = () => {
           <div className="flex justify-center">
             <UploadImage
               onImageUpload={(image) => {
-                console.log(image);
+                handleUploadImage(image);
               }}
+              dataImage={frmSlider.image}
+              loading={loading}
             />
           </div>
         </div>
