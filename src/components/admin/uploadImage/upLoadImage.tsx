@@ -120,7 +120,7 @@ export const UploadImage = ({ onImageUpload, dataImage }: IProps) => {
           radius="sm"
           color="primary"
           fullWidth
-          isDisabled={!previewImage}
+          isDisabled={!previewImage && dataImage !== null}
         >
           Subir imagen
         </Button>
