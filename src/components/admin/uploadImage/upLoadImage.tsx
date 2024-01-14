@@ -6,9 +6,10 @@ import { IconPhotoPlus, IconX } from "@tabler/icons-react";
 interface IProps {
   onImageUpload: (image: File) => void;
   dataImage?: string;
+  loading?: boolean;
 }
 
-export const UploadImage = ({ onImageUpload, dataImage }: IProps) => {
+export const UploadImage = ({ onImageUpload, dataImage, loading }: IProps) => {
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [isUploading, setIsUploading] = useState(false);
 
@@ -29,8 +30,6 @@ export const UploadImage = ({ onImageUpload, dataImage }: IProps) => {
       setIsUploading(false);
     };
     reader.readAsDataURL(file);
-
-    onImageUpload(file);
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -47,7 +46,7 @@ export const UploadImage = ({ onImageUpload, dataImage }: IProps) => {
 
   const handleDragOver = (e: React.DragEvent<HTMLLabelElement>) => {
     e.preventDefault();
-    e.dataTransfer.dropEffect = "link";
+    e.dataTransfer.dropEffect = "copy";
   };
 
   const handleDrop = (e: React.DragEvent<HTMLLabelElement>) => {
@@ -57,6 +56,16 @@ export const UploadImage = ({ onImageUpload, dataImage }: IProps) => {
 
     if (file) {
       handleImageChange(file);
+    }
+  };
+
+  const handleButtonClick = () => {
+    // When the button is clicked, upload the image
+    if (previewImage) {
+      const file = fileInputRef.current?.files?.[0];
+      if (file) {
+        onImageUpload(file);
+      }
     }
   };
 
@@ -121,6 +130,8 @@ export const UploadImage = ({ onImageUpload, dataImage }: IProps) => {
           color="primary"
           fullWidth
           isDisabled={!previewImage && dataImage !== null}
+          isLoading={loading}
+          onClick={handleButtonClick}
         >
           Subir imagen
         </Button>

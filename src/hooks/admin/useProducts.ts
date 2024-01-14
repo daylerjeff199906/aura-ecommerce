@@ -42,14 +42,17 @@ export function useProducts() {
   };
 
   const uploadImage = async (file: File): Promise<string> => {
+    setLoading(true);
     try {
-      const storageRef = ref(storage, `products/${file.name}`);
+      const storageRef = ref(storage, `aurora-ecommerce/products/${file.name}`);
       await uploadBytes(storageRef, file);
 
       const url = await getDownloadURL(storageRef);
+      setLoading(false);
       return url;
     } catch (e) {
       console.error("Error uploading image: ", e);
+      setLoading(false);
       return "";
     }
   };
