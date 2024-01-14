@@ -23,24 +23,24 @@ const responsive = {
 };
 
 export const Banner = () => {
-  const { loading, getSlider, sliders } = useDataSlider();
+  const { loading, getSlidersActive, slidersActive } = useDataSlider();
 
   useEffect(() => {
-    getSlider();
+    getSlidersActive();
   }, []);
 
   // console.log(sliders);
 
   return (
     <div className="sm:h-screen max-h-[40rem]  w-full">
-      {sliders ? (
+      {slidersActive ? (
         <Carousel
           responsive={responsive}
           className="w-full h-full max-h-[40rem] z-10"
           infinite={true}
           autoPlay={true}
         >
-          {sliders.map((item, index) => (
+          {slidersActive.map((item, index) => (
             <Image
               key={index}
               src={item?.image}

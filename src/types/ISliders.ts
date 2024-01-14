@@ -4,6 +4,6 @@ export interface ISliders {
   name: string;
   tag: string;
   isActive: boolean;
-  createdAt?: Date;
+  createdAt: Date;
   updatedAt: Date;
 }

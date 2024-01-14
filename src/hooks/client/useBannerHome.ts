@@ -7,6 +7,8 @@ import {
   doc,
   DocumentReference,
   getDoc,
+  query,
+  where,
 } from "firebase/firestore";
 import { ISliders } from "@/types";
 
@@ -50,6 +52,7 @@ const convertDataToISlidersById = (data: DocumentData) => {
 export function useDataSlider() {
   const [loading, setLoading] = useState<boolean>(true);
   const [sliders, setSliders] = useState<ISliders[] | null>(null);
+  const [slidersActive, setSlidersActive] = useState<ISliders[] | null>(null);
   const [slider, setSlider] = useState<ISliders | null>(null);
 
   const getSlider = async () => {
@@ -61,6 +64,24 @@ export function useDataSlider() {
         ...doc.data(),
       }));
       setSliders(convertDataToISliders(sliders));
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getSlidersActive = async () => {
+    setLoading(true);
+    try {
+      const querySnapshot = await getDocs(
+        query(collection(db, "slider"), where("isActive", "==", true))
+      );
+
+      const sliders = querySnapshot.docs.map((doc) => ({
+        id: doc.id.toString(),
+        ...doc.data(),
+      }));
+      setSlidersActive(convertDataToISliders(sliders));
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -88,5 +109,13 @@ export function useDataSlider() {
     }
   };
 
-  return { loading, sliders, getSlider, getSliderById, slider };
+  return {
+    loading,
+    getSlider,
+    getSlidersActive,
+    getSliderById,
+    slider,
+    sliders,
+    slidersActive,
+  };
 }

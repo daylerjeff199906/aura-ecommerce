@@ -16,6 +16,7 @@ export const FrmSlider = () => {
     tag: "",
     image: "",
     isActive: false,
+    createdAt: new Date(),
     updatedAt: new Date(),
   });
 
@@ -34,6 +35,7 @@ export const FrmSlider = () => {
         tag: slider.tag,
         isActive: slider.isActive,
         image: slider.image,
+        createdAt: slider?.createdAt,
         updatedAt: slider?.updatedAt,
       });
     }
@@ -56,6 +58,7 @@ export const FrmSlider = () => {
       tag: "",
       image: "",
       isActive: false,
+      createdAt: new Date(),
       updatedAt: new Date(),
     });
   };
@@ -156,7 +159,7 @@ export const FrmSlider = () => {
         </div>
       </div>
       {id && (
-        <div>
+        <div className="space-y-4">
           <h1 className="text-sm font-medium text-zinc-500">Agregar imagen</h1>
           <div className="flex justify-center">
             <UploadImage
