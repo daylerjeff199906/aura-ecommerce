@@ -28,7 +28,7 @@ export const SliderProvider = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     getSlider();
-  }, []);
+  }, [message]);
 
   useEffect(() => {
     if (sliders) {
