@@ -30,7 +30,6 @@ interface IProps {
   rows: {
     key: string;
     [key: string]: string | React.ReactNode;
-    showImage?: boolean;
   }[];
 }
 

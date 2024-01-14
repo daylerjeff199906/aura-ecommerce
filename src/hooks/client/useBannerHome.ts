@@ -5,15 +5,17 @@ import { ISliders } from "@/types";
 
 const convertDataToISliders = (data: DocumentData[]) => {
   return data?.map((slider) => {
-    const { image, name, tag, isActive, updatedAt } = slider;
+    const { image, name, tag, isActive, createdAt } = slider;
     const id = slider?.id;
+    const fModificacion = slider?.updatedAt?.toDate().toString();
     return {
       id: id,
       image,
       name,
       tag,
       isActive,
-      updatedAt,
+      createdAt,
+      updatedAt: fModificacion,
     };
   });
 };

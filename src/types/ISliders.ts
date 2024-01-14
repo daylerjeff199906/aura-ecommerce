@@ -1,9 +1,9 @@
 export interface ISliders {
-  id?: number;
+  id: number;
   image: string;
   name: string;
   tag: string;
-  isActive?: boolean;
+  isActive: boolean;
   createdAt?: Date;
-  updatedAt?: Date;
+  updatedAt: Date;
 }

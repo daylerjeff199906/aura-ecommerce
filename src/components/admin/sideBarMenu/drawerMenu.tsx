@@ -61,7 +61,7 @@ const itemsMenu = [
   {
     id: "carousel",
     nameOption: "Carousel",
-    hrefLink: "/admin/slider",
+    hrefLink: "/admin/sliders",
     icon: <IconCarouselHorizontal />,
     subItems: [],
   },

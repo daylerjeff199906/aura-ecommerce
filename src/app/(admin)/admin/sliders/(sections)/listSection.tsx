@@ -59,10 +59,10 @@ export const ListSection = () => {
           sliders
             ? sliders?.map((slider) => {
                 return {
-                  key: slider.id,
+                  key: slider?.id.toString(),
                   slider: slider.name,
                   tag: slider.tag,
-                  updateAt: slider.updatedAt,
+                  updatedAt: slider.updatedAt.toDateString(),
                   isActive: slider.isActive ? "Si" : "No",
                   actions: "Active",
                 };
