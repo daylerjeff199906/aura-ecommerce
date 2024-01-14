@@ -41,6 +41,25 @@ export function useProducts() {
     }
   };
 
+  const editProductField = async (
+    productId: string,
+    fieldToUpdate: string,
+    value: any
+  ) => {
+    setLoading(true);
+    try {
+      const productDocRef = doc(db, "products", productId);
+      await updateDoc(productDocRef, {
+        [fieldToUpdate]: value,
+      });
+      setMessage(`Producto ${fieldToUpdate} editado correctamente a ${value}`);
+      setLoading(false);
+    } catch (e) {
+      console.error("Error adding document: ", e);
+      setLoading(false);
+    }
+  };
+
   const uploadImage = async (file: File): Promise<string> => {
     setLoading(true);
     try {
@@ -57,5 +76,12 @@ export function useProducts() {
     }
   };
 
-  return { addProduct, editProduct, loading, message, uploadImage };
+  return {
+    addProduct,
+    editProduct,
+    editProductField,
+    loading,
+    message,
+    uploadImage,
+  };
 }

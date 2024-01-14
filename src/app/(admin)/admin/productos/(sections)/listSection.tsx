@@ -2,7 +2,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { TableAdmin } from "@/components";
-import { useDataProducts } from "@/hooks";
+import { useDataProducts, useProducts } from "@/hooks";
 
 const columns = [
   {
@@ -45,9 +45,16 @@ const rows = [
 
 export const ListSection = () => {
   const { getProducts, products } = useDataProducts();
+  const { editProduct } = useProducts();
+
   useEffect(() => {
     getProducts();
   }, []);
+
+  const changeState = async (id: string, value: boolean) => {
+    await editProduct(id, { isActive: value });
+    getProducts();
+  };
 
   return (
     <>
@@ -69,6 +76,7 @@ export const ListSection = () => {
               })
             : rows
         }
+        handleAction={(id, state) => changeState(id, state)}
       />
     </>
   );
