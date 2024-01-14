@@ -55,20 +55,9 @@ const itemsMenu = [
   {
     id: "carousel",
     nameOption: "Carousel",
-    hrefLink: null,
+    hrefLink: "/admin/slider",
     icon: <IconCarouselHorizontal />,
-    subItems: [
-      {
-        id: "carousel-list",
-        nameOption: "Lista de carousel",
-        url: "/admin/sliders",
-      },
-      {
-        id: "carousel-create",
-        nameOption: "Crear carousel",
-        url: "/admin/sliders/create",
-      },
-    ],
+    subItems: [],
   },
 ];
 
