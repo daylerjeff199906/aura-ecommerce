@@ -6,7 +6,9 @@ import { ISliders } from "@/types";
 const convertDataToISliders = (data: DocumentData[]) => {
   return data?.map((slider) => {
     const { image, name, tag, isActive, updatedAt } = slider;
+    const id = slider?.id;
     return {
+      id: id,
       image,
       name,
       tag,
@@ -24,7 +26,10 @@ export function useDataSlider() {
     setLoading(true);
     try {
       const querySnapshot = await getDocs(collection(db, "slider"));
-      const sliders = querySnapshot.docs.map((doc) => doc.data());
+      const sliders = querySnapshot.docs.map((doc) => ({
+        id: doc.id.toString(),
+        ...doc.data(),
+      }));
       setSliders(convertDataToISliders(sliders));
       setLoading(false);
     } catch (error) {

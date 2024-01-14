@@ -1,0 +1,32 @@
+import { useState, useEffect } from "react";
+import { db, storage } from "@/firebase/firebase";
+import { collection, addDoc, updateDoc, doc } from "firebase/firestore";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+
+export function useSliders() {
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState(null as string | null);
+
+  useEffect(() => {
+    if (message) {
+      setTimeout(() => {
+        setMessage(null);
+      }, 5000);
+    }
+  }, [message]);
+
+  const addSlider = async (slider: any) => {
+    setLoading(true);
+    try {
+      const docRef = await addDoc(collection(db, "slider"), slider);
+      console.log("Document written with ID: ", docRef.id);
+      setMessage("Slider agregado correctamente");
+      setLoading(false);
+    } catch (e) {
+      console.error("Error adding document: ", e);
+      setLoading(false);
+    }
+  };
+
+  return { loading, message, addSlider };
+}
