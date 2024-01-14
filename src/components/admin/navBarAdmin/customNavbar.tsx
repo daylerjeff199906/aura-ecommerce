@@ -11,12 +11,13 @@ import {
   Tooltip,
 } from "@nextui-org/react";
 import { useAuth } from "@/providers";
-import { IconLogout, IconHeart } from "@tabler/icons-react";
+import { IconLogout, IconMenu2 } from "@tabler/icons-react";
+import { DrawerMenuAdmin } from "../sideBarMenu/drawerMenu";
 
 export const NavbarAdmin = () => {
   const { handleLogout } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  // const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   return (
     <Navbar
@@ -27,10 +28,16 @@ export const NavbarAdmin = () => {
       isMenuOpen={isMenuOpen}
       onMenuOpenChange={setIsMenuOpen}
     >
-      <NavbarContent className="sm:hidden" justify="start">
-        <NavbarMenuToggle
-          aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-        />
+      <NavbarContent className="lg:hidden">
+        <NavbarItem>
+          <Button
+            isIconOnly
+            variant="light"
+            onClick={() => setIsDrawerOpen(true)}
+          >
+            <IconMenu2 />
+          </Button>
+        </NavbarItem>
       </NavbarContent>
       <NavbarContent>
         <NavbarBrand>
@@ -49,6 +56,7 @@ export const NavbarAdmin = () => {
           </Tooltip>
         </NavbarItem>
       </NavbarContent>
+      <DrawerMenuAdmin isOpen={isDrawerOpen} setOpen={setIsDrawerOpen} />
     </Navbar>
   );
 };

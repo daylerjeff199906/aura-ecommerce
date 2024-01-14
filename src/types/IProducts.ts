@@ -4,8 +4,12 @@ export interface IProducts {
   price: number;
   image: string;
   description: string;
-  category: string;
+  category: {
+    id: string;
+    name: string;
+  };
   isOffer: boolean;
+  isActive: boolean;
   // quantity: number;
   discount: number;
   // discountPrice?: number;

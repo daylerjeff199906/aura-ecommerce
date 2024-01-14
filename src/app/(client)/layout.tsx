@@ -9,7 +9,7 @@ export default function LayoutClient({
   return (
     <ShopCartProvider>
       <CustomNavbar />
-      {children}
+      <div className="pt-24 sm:pt-2">{children}</div>
       <Footer />
     </ShopCartProvider>
   );

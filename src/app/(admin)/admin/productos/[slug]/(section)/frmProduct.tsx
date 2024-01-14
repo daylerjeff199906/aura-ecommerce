@@ -2,6 +2,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import {
   Button,
   Input,
@@ -10,13 +11,15 @@ import {
   SelectItem,
   Spinner,
 } from "@nextui-org/react";
-import { useProducts } from "@/hooks";
-import { useDataProducts } from "@/hooks";
-import { useDataCategory } from "@/hooks";
+import { useProducts, useDataCategory } from "@/hooks";
 import { IconCircleCheck } from "@tabler/icons-react";
+import { IProducts } from "@/types";
 
-export const FrmProduct = ({ id }: { id: string }) => {
-  const { getProductById, product: dataProduct } = useDataProducts();
+export const FrmProduct = ({
+  dataProduct,
+}: {
+  dataProduct: IProducts | null;
+}) => {
   const { addProduct, editProduct, loading, message } = useProducts();
   const { categories, getCategory } = useDataCategory();
   const router = useRouter();
@@ -29,15 +32,19 @@ export const FrmProduct = ({ id }: { id: string }) => {
     description: "",
     image: "",
     isOffer: false,
-    category: "",
+    isActive: false,
+    category: {
+      id: "",
+      name: "",
+    },
     createdAt: new Date(),
   });
 
   const radius = "sm";
 
   const handleAddProduct = () => {
-    if (id) {
-      editProduct(id, product);
+    if (dataProduct?.id) {
+      editProduct(dataProduct?.id, product);
     } else {
       addProduct(product);
     }
@@ -52,7 +59,11 @@ export const FrmProduct = ({ id }: { id: string }) => {
       description: "",
       image: "",
       isOffer: false,
-      category: "",
+      isActive: false,
+      category: {
+        id: "",
+        name: "",
+      },
       createdAt: new Date(),
     });
   };
@@ -60,12 +71,6 @@ export const FrmProduct = ({ id }: { id: string }) => {
   useEffect(() => {
     getCategory();
   }, []);
-
-  useEffect(() => {
-    if (id) {
-      getProductById(id);
-    }
-  }, [id]);
 
   useEffect(() => {
     if (dataProduct) {
@@ -77,7 +82,11 @@ export const FrmProduct = ({ id }: { id: string }) => {
         description: dataProduct.description,
         image: dataProduct.image,
         isOffer: dataProduct.isOffer,
-        category: dataProduct.category,
+        isActive: dataProduct.isActive,
+        category: {
+          id: dataProduct.category.id,
+          name: dataProduct.category.name,
+        },
         createdAt: dataProduct.createdAt,
       });
     }
@@ -87,16 +96,34 @@ export const FrmProduct = ({ id }: { id: string }) => {
     if (message) {
       setTimeout(() => {
         router.push("/admin/productos");
-      }, 2000);
+      }, 1000);
     }
   }, [message]);
 
+  const handleCategory = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const categoria = categories?.find(
+      (category) => category.value === e.target.value
+    );
+    setProduct({
+      ...product,
+      category: {
+        id: e.target.value,
+        name: categoria?.name ?? "",
+      },
+    });
+  };
   return (
-    <>
+    <div className="w-full">
       {loading && (
         <div className="flex gap-2 py-2 items-center">
           <Spinner />
-          <h3>Agregando producto...</h3>
+          <h3>
+            {
+              <span className="animate-pulse">
+                {dataProduct?.id ? "Actualizando" : "Agregando"} producto...
+              </span>
+            }
+          </h3>
         </div>
       )}
       {message && (
@@ -134,8 +161,8 @@ export const FrmProduct = ({ id }: { id: string }) => {
           placeholder="Categoría"
           disabled={loading}
           radius={radius}
-          selectedKeys={[product.category]}
-          onChange={(e) => setProduct({ ...product, category: e.target.value })}
+          selectedKeys={[product.category.id]}
+          onChange={(e) => handleCategory(e)}
         >
           {categories ? (
             categories?.map((category) => (
@@ -188,12 +215,14 @@ export const FrmProduct = ({ id }: { id: string }) => {
             color="primary"
             onClick={handleAddProduct}
             radius={radius}
-            disabled={loading}
+            isDisabled={loading}
           >
-            {id ? "Guardar cambios" : "Agregar"}
+            {dataProduct ? "Guardar cambios" : "Agregar"}
           </Button>
           <Button
             color="danger"
+            as={Link}
+            href="/admin/productos"
             onClick={handleClearProduct}
             radius={radius}
             variant="ghost"
@@ -202,6 +231,6 @@ export const FrmProduct = ({ id }: { id: string }) => {
           </Button>
         </div>
       </div>
-    </>
+    </div>
   );
 };

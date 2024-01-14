@@ -14,11 +14,11 @@ export const ProductsProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const { getProducts, products } = useDataProducts();
+  const { getProductsActive, productsActive } = useDataProducts();
   //   const { filterFromUrl } = useFilterFromUrl();
 
   useEffect(() => {
-    getProducts();
+    getProductsActive();
   }, []);
 
   //   useEffect(() => {
@@ -28,7 +28,7 @@ export const ProductsProvider = ({
   //   }, [filterFromUrl]);
 
   return (
-    <ProductsContext.Provider value={{ listProducts: products }}>
+    <ProductsContext.Provider value={{ listProducts: productsActive }}>
       {children}
     </ProductsContext.Provider>
   );

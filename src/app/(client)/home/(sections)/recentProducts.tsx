@@ -37,14 +37,14 @@ const responsive = {
 };
 
 export const RecentProducts = () => {
-  const { getProducts, products, loading } = useDataProducts();
+  const { getProductsActive, productsActive, loading } = useDataProducts();
 
   useEffect(() => {
-    getProducts();
+    getProductsActive();
   }, []);
 
   return (
-    <section className="container">
+    <section className="container pb-10 sm:pb-16 lg:pb-20">
       <div className="space-y-4 pb-6">
         <h1 className="title-home">Productos recientes</h1>
         <Divider />
@@ -57,7 +57,7 @@ export const RecentProducts = () => {
           <p className="text-2xl font-bold">Espere un momento ...</p>
         </div>
       )}
-      {products && (
+      {productsActive && (
         <Carousel
           responsive={responsive}
           infinite={true}
@@ -65,7 +65,7 @@ export const RecentProducts = () => {
           partialVisible
           className="z-10"
         >
-          {products?.slice(0, 10).map((item, index) => (
+          {productsActive?.slice(0, 10).map((item, index) => (
             <div key={index} className="mr-4">
               <CardProducts data={item} />
             </div>

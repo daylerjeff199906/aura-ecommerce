@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { db } from "@/firebase/firebase";
 import {
   collection,
@@ -8,8 +8,9 @@ import {
   doc,
   DocumentReference,
   getDoc,
+  query,
+  where,
 } from "firebase/firestore";
-import { useDataCategory } from "./useCategories";
 import { IProducts } from "@/types";
 
 const convertDataToIProducts = (data: DocumentData[]) => {
@@ -21,7 +22,9 @@ const convertDataToIProducts = (data: DocumentData[]) => {
       description,
       discount,
       stock,
+      category,
       isOffer,
+      isActive,
       createdAt,
     } = product;
 
@@ -33,8 +36,9 @@ const convertDataToIProducts = (data: DocumentData[]) => {
       price: price,
       image: image,
       isOffer: isOffer,
+      isActive: isActive,
       description: description,
-      category: "",
+      category: category,
       discount: discount,
       stock: stock,
       createdAt: createdAt,
@@ -52,6 +56,7 @@ const convertDataToIProduct = (data: DocumentData) => {
     discount,
     stock,
     isOffer,
+    isActive,
     createdAt,
   } = data;
 
@@ -63,8 +68,9 @@ const convertDataToIProduct = (data: DocumentData) => {
     price: price,
     image: image,
     isOffer: isOffer,
+    isActive: isActive,
     description: description,
-    category: "",
+    category: category,
     discount: discount,
     stock: stock,
     createdAt: createdAt,
@@ -72,24 +78,39 @@ const convertDataToIProduct = (data: DocumentData) => {
 };
 
 export function useDataProducts() {
-  const { categories, getCategory } = useDataCategory();
   const [loading, setLoading] = useState<boolean>(true);
   const [products, setProducts] = useState<IProducts[] | null>(null);
+  const [productsActive, setProductsActive] = useState<IProducts[] | null>(
+    null
+  );
   const [product, setProduct] = useState<IProducts | null>(null);
-
-  useEffect(() => {
-    getCategory();
-  }, []);
 
   const getProducts = async () => {
     setLoading(true);
     try {
       const querySnapshot = await getDocs(collection(db, "products"));
       const products = querySnapshot?.docs?.map((doc) => ({
-        id: doc.id,
+        id: doc.id.toString(),
         ...doc.data(),
       }));
       setProducts(convertDataToIProducts(products));
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const getProductsActive = async () => {
+    setLoading(true);
+    try {
+      const querySnapshot = await getDocs(
+        query(collection(db, "products"), where("isActive", "==", true))
+      );
+      const products = querySnapshot?.docs?.map((doc) => ({
+        id: doc.id.toString(),
+        ...doc.data(),
+      }));
+      setProductsActive(convertDataToIProducts(products));
       setLoading(false);
     } catch (error) {
       console.log(error);
@@ -104,7 +125,6 @@ export function useDataProducts() {
         id
       );
       const productDoc = await getDoc(productRef);
-
       if (productDoc.exists()) {
         const product = {
           id: productDoc.id,
@@ -119,5 +139,13 @@ export function useDataProducts() {
     }
   };
 
-  return { loading, products, getProducts, getProductById, product };
+  return {
+    loading,
+    getProducts,
+    getProductsActive,
+    products,
+    productsActive,
+    getProductById,
+    product,
+  };
 }

@@ -1,4 +1,5 @@
 "use client";
+import { useState } from "react";
 import {
   Table,
   TableBody,
@@ -8,13 +9,20 @@ import {
   TableRow,
   getKeyValue,
   Button,
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  useDisclosure,
 } from "@nextui-org/react";
 
-import { IconEdit, IconTrash, IconEye } from "@tabler/icons-react";
+import { IconEdit, IconTrash, IconEye, IconReload } from "@tabler/icons-react";
 import Link from "next/link";
 
 interface IProps {
   url_base?: string;
+  handleAction?: (id: string, state: boolean) => void;
   columns: {
     key: string;
     label: string;
@@ -26,7 +34,18 @@ interface IProps {
   }[];
 }
 
-export const TableAdmin = ({ columns, rows, url_base }: IProps) => {
+export const TableAdmin = ({
+  columns,
+  rows,
+  url_base,
+  handleAction,
+}: IProps) => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [stateSelected, setStateSelected] = useState({
+    id: "",
+    isActive: "",
+  });
+
   return (
     <>
       <Table aria-label="Table with dynamic content">
@@ -60,9 +79,24 @@ export const TableAdmin = ({ columns, rows, url_base }: IProps) => {
                         isIconOnly
                         size="sm"
                         variant="light"
-                        color="danger"
+                        color={
+                          getKeyValue(item, "isActive") === "Si"
+                            ? "danger"
+                            : "success"
+                        }
+                        onPress={() => {
+                          setStateSelected({
+                            id: item.key,
+                            isActive: getKeyValue(item, "isActive"),
+                          });
+                          onOpen();
+                        }}
                       >
-                        <IconTrash />
+                        {getKeyValue(item, "isActive") === "Si" ? (
+                          <IconTrash />
+                        ) : (
+                          <IconReload />
+                        )}
                       </Button>
                     </div>
                   ) : (
@@ -74,6 +108,41 @@ export const TableAdmin = ({ columns, rows, url_base }: IProps) => {
           )}
         </TableBody>
       </Table>
+      <Modal size="sm" isOpen={isOpen} onClose={onClose} className="p-0">
+        <ModalContent>
+          {(onClose) => (
+            <>
+              <ModalHeader className="flex flex-col gap-1">
+                Realizar accion
+              </ModalHeader>
+              <ModalBody>
+                <h1>
+                  {stateSelected?.isActive === "Si" ? "Desactivar" : "Activar"}{" "}
+                  elemento?
+                </h1>
+              </ModalBody>
+              <ModalFooter>
+                <Button color="danger" variant="light" onPress={onClose}>
+                  Cancelar
+                </Button>
+                <Button
+                  color="primary"
+                  onPress={() => {
+                    onClose();
+                    handleAction &&
+                      handleAction(
+                        stateSelected?.id,
+                        stateSelected?.isActive === "Si" ? false : true
+                      );
+                  }}
+                >
+                  Aceptar
+                </Button>
+              </ModalFooter>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
     </>
   );
 };

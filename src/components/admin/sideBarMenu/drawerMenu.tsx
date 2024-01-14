@@ -1,11 +1,19 @@
-import { Accordion, AccordionItem, Button } from "@nextui-org/react";
-import Link from "next/link";
+import {
+  Button,
+  Divider,
+  Link,
+  Accordion,
+  AccordionItem,
+} from "@nextui-org/react";
+import { IconX, IconShoppingCart } from "@tabler/icons-react";
 
 import {
   IconLayoutDashboard,
   IconShoppingBag,
   IconCategory2,
 } from "@tabler/icons-react";
+
+import { IProducts } from "@/types";
 
 const itemsMenu = [
   {
@@ -53,11 +61,49 @@ const itemsMenu = [
   },
 ];
 
-export const SiderBarMenu = ({ children }: { children: React.ReactNode }) => {
+export const DrawerMenuAdmin = ({
+  isOpen,
+  setOpen,
+}: {
+  isOpen: boolean;
+  setOpen?: (value: boolean) => void;
+}) => {
+  const drawerClasses = `fixed top-0 right-0 z-50 h-screen p-4 overflow-y-auto transition-transform ${
+    isOpen ? "translate-x-0" : "translate-x-full"
+  } bg-white w-80 dark:bg-gray-800`;
+
+  const overlayClasses = `fixed top-0 right-0 bottom-0 left-0 z-50 transition-opacity ${
+    isOpen ? "opacity-50" : "opacity-0 pointer-events-none"
+  } bg-black`;
+
   return (
-    <div className="flex gap-6 ">
-      <div className="w-64 py-4 hidden lg:block bg-white">
-        <div className="flex flex-col gap-4">
+    <div>
+      <div
+        className={overlayClasses}
+        onClick={() => setOpen && setOpen(false)}
+      />
+      <div
+        id="drawer-right-example"
+        className={drawerClasses}
+        arial-aria-labelledby="drawer-right-label"
+      >
+        <div className="flex justify-between gap-6">
+          <h5 className="inline-flex items-center mb-4 text-base font-semibold text-gray-500 dark:text-gray-400">
+            Menu
+          </h5>
+          <Button
+            variant="light"
+            size="sm"
+            isIconOnly
+            onClick={() => setOpen && setOpen(false)}
+          >
+            <IconX />
+          </Button>
+        </div>
+        <Divider />
+        {/** contenido */}
+        <div className="flex flex-col gap-4 mt-4">
+          {" "}
           <div className="w-full">
             {itemsMenu?.map((item, index) =>
               item?.subItems?.length > 0 ? (
@@ -112,7 +158,6 @@ export const SiderBarMenu = ({ children }: { children: React.ReactNode }) => {
           </div>
         </div>
       </div>
-      <div className="container p-4">{children}</div>
     </div>
   );
 };

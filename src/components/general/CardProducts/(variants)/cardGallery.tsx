@@ -59,7 +59,7 @@ export const CardGallery = ({ data }: { data?: IProducts }) => {
         </Tooltip>
       </div>
       <CardBody>
-        <p className="text-sm text-zinc-400">{data?.category}</p>
+        <p className="text-sm text-zinc-400">{data?.category?.name}</p>
         <h3 className="text-xl font-bold line-clamp-1">{data?.name}</h3>
         <p className="text-lg text-gray-500">
           {data?.discount ? (
