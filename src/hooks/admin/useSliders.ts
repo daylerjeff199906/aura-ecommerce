@@ -40,6 +40,25 @@ export function useSliders() {
     }
   };
 
+  const editSliderField = async (
+    id: string,
+    fieldToUpdate: string,
+    value: any
+  ) => {
+    setLoading(true);
+    try {
+      const productDocRef = doc(db, "slider", id);
+      await updateDoc(productDocRef, {
+        [fieldToUpdate]: value,
+      });
+      setMessage(`Slider ${fieldToUpdate} editado correctamente a ${value}`);
+      setLoading(false);
+    } catch (e) {
+      console.error("Error adding document: ", e);
+      setLoading(false);
+    }
+  };
+
   const uploadImage = async (file: File): Promise<string> => {
     setLoading(true);
     try {
@@ -56,5 +75,12 @@ export function useSliders() {
     }
   };
 
-  return { loading, message, addSlider, updateSlider, uploadImage };
+  return {
+    loading,
+    message,
+    addSlider,
+    updateSlider,
+    editSliderField,
+    uploadImage,
+  };
 }

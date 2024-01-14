@@ -9,6 +9,7 @@ export const SliderContext = createContext<{
   loading: boolean;
   addSlider: (data: any) => void;
   updateSlider: (data: any, id: string) => void;
+  editSliderField: (id: string, field: string, value: any) => void;
   uploadImage: (file: File) => any;
 }>({
   sliders: [],
@@ -16,13 +17,20 @@ export const SliderContext = createContext<{
   loading: false,
   addSlider: () => {},
   updateSlider: () => {},
+  editSliderField: () => {},
   uploadImage: () => {},
 });
 
 export const SliderProvider = ({ children }: { children: React.ReactNode }) => {
   const { getSlider, sliders } = useDataSlider();
-  const { addSlider, updateSlider, uploadImage, loading, message } =
-    useSliders();
+  const {
+    addSlider,
+    updateSlider,
+    uploadImage,
+    editSliderField,
+    loading,
+    message,
+  } = useSliders();
 
   const [listSliders, setListSliders] = useState<ISliders[]>([]);
 
@@ -44,6 +52,7 @@ export const SliderProvider = ({ children }: { children: React.ReactNode }) => {
         loading,
         addSlider,
         updateSlider,
+        editSliderField,
         uploadImage,
       }}
     >

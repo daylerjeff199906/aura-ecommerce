@@ -40,13 +40,13 @@ const rows = [
 ];
 
 export const ListSection = () => {
-  const { sliders } = useFunctionsSliders();
-  // const { editProduct } = useProducts();
+  const { sliders, updateSlider } = useFunctionsSliders();
 
-  // const changeState = async (id: string, value: boolean) => {
-  //   await editProduct(id, { isActive: value });
-  //   getProducts();
-  // };
+  const changeState = async (id: string, value: boolean) => {
+    await updateSlider({ isActive: value }, id);
+    // getProducts();
+  };
+
   return (
     <>
       <TableAdmin
@@ -67,7 +67,7 @@ export const ListSection = () => {
               })
             : rows
         }
-        // handleAction={(id, state) => changeState(id, state)}
+        handleAction={(id, state) => changeState(id, state)}
       />
     </>
   );
