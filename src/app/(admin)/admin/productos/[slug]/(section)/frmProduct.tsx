@@ -10,6 +10,7 @@ import {
   Textarea,
   SelectItem,
   Spinner,
+  Checkbox,
 } from "@nextui-org/react";
 import { useProducts, useDataCategory } from "@/hooks";
 import { IconCircleCheck } from "@tabler/icons-react";
@@ -117,7 +118,7 @@ export const FrmProduct = ({
       {loading && (
         <div className="flex gap-2 py-2 items-center">
           <Spinner />
-          <h3>
+          <h3 className="mb-2">
             {
               <span className="animate-pulse">
                 {dataProduct?.id ? "Actualizando" : "Agregando"} producto...
@@ -135,6 +136,7 @@ export const FrmProduct = ({
         </div>
       )}
       <div className="space-y-4">
+        <h3 className="text-zinc-500">Datos del producto </h3>
         <Input
           radius={radius}
           label="Nombre"
@@ -210,6 +212,13 @@ export const FrmProduct = ({
             }
           />
         </div>
+        <h3 className="text-zinc-500">Metadata del producto </h3>
+        <Checkbox
+          isSelected={product.isOffer}
+          onValueChange={(value) => setProduct({ ...product, isOffer: value })}
+        >
+          En oferta
+        </Checkbox>
         <div className="flex gap-2">
           <Button
             color="primary"

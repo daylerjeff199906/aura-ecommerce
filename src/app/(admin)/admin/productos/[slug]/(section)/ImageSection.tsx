@@ -52,7 +52,7 @@ export const UploadImageSection = ({ data }: { data: IProducts | null }) => {
   };
 
   return (
-    <>
+    <div className="pt-4 ">
       <UploadImage
         onImageUpload={(image: File) => {
           handleUploadImage(image);
@@ -60,6 +60,6 @@ export const UploadImageSection = ({ data }: { data: IProducts | null }) => {
         dataImage={data?.image}
         loading={loading}
       />
-    </>
+    </div>
   );
 };
