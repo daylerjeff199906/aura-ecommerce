@@ -13,8 +13,6 @@ export const DetailsSection = ({ id }: { id: string }) => {
     getProductById(id);
   }, [id]);
 
-  console.log(isLoadImage);
-
   return (
     <section className="container max-w-7xl">
       <div className="block sm:flex gap-6 lg:gap-10">
@@ -38,7 +36,9 @@ export const DetailsSection = ({ id }: { id: string }) => {
         </div>
         <div className="sm:py-12 space-y-6">
           <div className="space-y-2">
-            <p>Tag</p>
+            <p className="text-sm text-zinc-500 font-medium">
+              {product?.category?.name}
+            </p>
             <h1 className="text-4xl font-bold">{product?.name}</h1>
             <h3 className="font-bold text-lg">s/ {product?.price}</h3>
             <p className="text-zinc-600">{product?.description}</p>

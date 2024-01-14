@@ -44,7 +44,7 @@ export const RecentProducts = () => {
   }, []);
 
   return (
-    <section className="container">
+    <section className="container pb-10 sm:pb-16 lg:pb-20">
       <div className="space-y-4 pb-6">
         <h1 className="title-home">Productos recientes</h1>
         <Divider />
