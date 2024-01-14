@@ -6,8 +6,8 @@ import { useDataSlider } from "@/hooks";
 
 const columns = [
   {
-    key: "slider",
-    label: "Slider",
+    key: "name",
+    label: "Nombre",
   },
   {
     key: "tag",
@@ -30,7 +30,7 @@ const columns = [
 const rows = [
   {
     key: "",
-    slider: "",
+    name: "",
     tag: "",
     updatedAt: "",
     isActive: "",
@@ -54,13 +54,14 @@ export const ListSection = () => {
     <>
       <TableAdmin
         url_base="slider"
+        isExternalUrl={true}
         columns={columns}
         rows={
           sliders
             ? sliders?.map((slider) => {
                 return {
                   key: slider?.id?.toString(),
-                  slider: slider?.name,
+                  name: slider?.name,
                   tag: slider?.tag,
                   updatedAt: slider?.updatedAt?.toString(),
                   isActive: slider?.isActive ? "Si" : "No",

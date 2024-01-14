@@ -52,7 +52,7 @@ export const UploadImageSection = ({ data }: { data: IProducts | null }) => {
   };
 
   return (
-    <div className="pt-4 ">
+    <div className="pt-4 w-full max-w-sm">
       <UploadImage
         onImageUpload={(image: File) => {
           handleUploadImage(image);
