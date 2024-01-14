@@ -13,7 +13,12 @@ import {
   Checkbox,
 } from "@nextui-org/react";
 import { useProducts, useDataCategory } from "@/hooks";
-import { IconCircleCheck } from "@tabler/icons-react";
+import {
+  IconCircleCheck,
+  IconPercentage,
+  IconCurrencyDollar,
+  IconBox,
+} from "@tabler/icons-react";
 import { IProducts } from "@/types";
 
 export const FrmProduct = ({
@@ -186,6 +191,9 @@ export const FrmProduct = ({
             disabled={loading}
             label="Precio"
             placeholder="Precio"
+            startContent={<IconCurrencyDollar className="text-zinc-500" />}
+            type="number"
+            min={0}
             value={product.price}
             onChange={(e) => setProduct({ ...product, price: e.target.value })}
           />
@@ -194,6 +202,7 @@ export const FrmProduct = ({
             label="Stock"
             placeholder="Stock"
             type="number"
+            startContent={<IconBox className="text-zinc-500" />}
             min={0}
             value={product.stock.toString()}
             onChange={(e) =>
@@ -206,6 +215,9 @@ export const FrmProduct = ({
             label="Descuento"
             aria-label="Descuento"
             placeholder="discount"
+            type="number"
+            min={0}
+            startContent={<IconPercentage className="text-zinc-500" />}
             value={product.discount.toString()}
             onChange={(e) =>
               setProduct({ ...product, discount: parseInt(e.target.value) })
