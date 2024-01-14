@@ -4,7 +4,7 @@ import { IProducts } from "@/types";
 import { useProducts, useDataProducts } from "@/hooks";
 
 export const UploadImageSection = ({ data }: { data: IProducts | null }) => {
-  const { uploadImage, loading, editProduct } = useProducts();
+  const { uploadImage, deleteImage, loading, editProduct } = useProducts();
   const { getProductById } = useDataProducts();
   const [product, setProduct] = useState({
     name: "",
@@ -51,11 +51,23 @@ export const UploadImageSection = ({ data }: { data: IProducts | null }) => {
     }
   };
 
+  const handleDeleteImage = async (url: string) => {
+    await deleteImage(url);
+    await setProduct({ ...product, image: "" });
+    if (data?.id) {
+      editProduct(data?.id, { ...product, image: "" });
+      await getProductById(data?.id);
+    }
+  };
+
   return (
     <div className="pt-4 w-full max-w-sm">
       <UploadImage
         onImageUpload={(image: File) => {
           handleUploadImage(image);
+        }}
+        onImageDelete={(url: string) => {
+          handleDeleteImage(url);
         }}
         dataImage={data?.image}
         loading={loading}
