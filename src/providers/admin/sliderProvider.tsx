@@ -11,6 +11,7 @@ export const SliderContext = createContext<{
   updateSlider: (data: any, id: string) => void;
   editSliderField: (id: string, field: string, value: any) => void;
   uploadImage: (file: File) => any;
+  deleteImage: (url: string) => void;
 }>({
   sliders: [],
   message: "",
@@ -19,6 +20,7 @@ export const SliderContext = createContext<{
   updateSlider: () => {},
   editSliderField: () => {},
   uploadImage: () => {},
+  deleteImage: () => {},
 });
 
 export const SliderProvider = ({ children }: { children: React.ReactNode }) => {
@@ -27,6 +29,7 @@ export const SliderProvider = ({ children }: { children: React.ReactNode }) => {
     addSlider,
     updateSlider,
     uploadImage,
+    deleteImage,
     editSliderField,
     loading,
     message,
@@ -54,6 +57,7 @@ export const SliderProvider = ({ children }: { children: React.ReactNode }) => {
         updateSlider,
         editSliderField,
         uploadImage,
+        deleteImage,
       }}
     >
       {children}

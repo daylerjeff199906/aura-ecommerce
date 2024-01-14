@@ -10,10 +10,16 @@ import { useFunctionsSliders } from "@/providers";
 export const FrmSlider = () => {
   const { getParams, updateFilter } = useFilterFromUrl();
   const { getSliderById, slider } = useDataSlider();
-  const { addSlider, updateSlider, uploadImage, loading, message } =
-    useFunctionsSliders();
-  
-    const [frmSlider, setFrmSlider] = useState({
+  const {
+    addSlider,
+    updateSlider,
+    uploadImage,
+    deleteImage,
+    loading,
+    message,
+  } = useFunctionsSliders();
+
+  const [frmSlider, setFrmSlider] = useState({
     name: "",
     tag: "",
     image: "",
@@ -78,6 +84,15 @@ export const FrmSlider = () => {
     await setFrmSlider({ ...frmSlider, image: urlImage });
     if (id) {
       updateSlider({ ...frmSlider, image: urlImage }, id);
+      await getSliderById(id);
+    }
+  };
+
+  const handleDeleteImage = async (url: string) => {
+    await deleteImage(url);
+    await setFrmSlider({ ...frmSlider, image: "" });
+    if (id) {
+      updateSlider({ ...frmSlider, image: "" }, id);
       await getSliderById(id);
     }
   };
@@ -165,8 +180,11 @@ export const FrmSlider = () => {
           <h1 className="text-sm font-medium text-zinc-500">Agregar imagen</h1>
           <div className="flex justify-center">
             <UploadImage
-              onImageUpload={(image) => {
-                handleUploadImage(image);
+              onImageUpload={(value) => {
+                handleUploadImage(value);
+              }}
+              onImageDelete={(value) => {
+                handleDeleteImage(value);
               }}
               dataImage={frmSlider.image}
               loading={loading}
