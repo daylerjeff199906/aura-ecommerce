@@ -5,11 +5,17 @@ import { IconPhotoPlus, IconX } from "@tabler/icons-react";
 
 interface IProps {
   onImageUpload: (image: File) => void;
+  onImageDelete?: (image: string) => void;
   dataImage?: string;
   loading?: boolean;
 }
 
-export const UploadImage = ({ onImageUpload, dataImage, loading }: IProps) => {
+export const UploadImage = ({
+  onImageUpload,
+  onImageDelete,
+  dataImage,
+  loading,
+}: IProps) => {
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [isUploading, setIsUploading] = useState(false);
 
@@ -62,9 +68,13 @@ export const UploadImage = ({ onImageUpload, dataImage, loading }: IProps) => {
   const handleButtonClick = () => {
     // When the button is clicked, upload the image
     if (previewImage) {
-      const file = fileInputRef.current?.files?.[0];
-      if (file) {
-        onImageUpload(file);
+      if (dataImage) {
+        onImageDelete && onImageDelete(dataImage);
+      } else {
+        const file = fileInputRef.current?.files?.[0];
+        if (file) {
+          onImageUpload(file);
+        }
       }
     }
   };
@@ -108,7 +118,12 @@ export const UploadImage = ({ onImageUpload, dataImage, loading }: IProps) => {
             {previewImage && !isUploading && (
               <div className="relative flex items-center justify-center w-full h-full">
                 <Image src={previewImage} alt="Preview" className="h-60" />
-                <div className="absolute top-0 right-0 z-20">
+
+                <div
+                  className={`absolute top-0 right-0 z-20 ${
+                    dataImage && "hidden"
+                  }`}
+                >
                   <Button
                     onClick={(e) => handleRemoveImage(e)}
                     variant="bordered"
@@ -127,13 +142,13 @@ export const UploadImage = ({ onImageUpload, dataImage, loading }: IProps) => {
       <div className="pt-4">
         <Button
           radius="sm"
-          color="primary"
+          color={dataImage ? "danger" : "primary"}
           fullWidth
           isDisabled={!previewImage && dataImage !== null}
           isLoading={loading}
           onClick={handleButtonClick}
         >
-          Subir imagen
+          {dataImage ? "Quitar imagen" : "Subir imagen"}
         </Button>
       </div>
     </div>

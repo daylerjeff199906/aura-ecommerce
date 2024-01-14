@@ -64,13 +64,13 @@ export const CardGallery = ({ data }: { data?: IProducts }) => {
         <p className="text-lg text-gray-500">
           {data?.discount ? (
             <>
-              <span className="line-through">${data?.price}</span>{" "}
+              <span className="line-through">s/. {data?.price}</span>{" "}
               <span className="font-bold">
-                ${data?.price - (data?.price * data?.discount) / 100}
+                s/ {data?.price - (data?.price * data?.discount) / 100}
               </span>
             </>
           ) : (
-            <span className="font-bold">${data?.price}</span>
+            <span className="font-bold">s/. {data?.price}</span>
           )}
         </p>
       </CardBody>

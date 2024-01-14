@@ -1,7 +1,12 @@
 import { useState, useEffect } from "react";
 import { db, storage } from "@/firebase/firebase";
 import { collection, addDoc, updateDoc, doc } from "firebase/firestore";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import {
+  ref,
+  uploadBytes,
+  getDownloadURL,
+  deleteObject,
+} from "firebase/storage";
 
 export function useProducts() {
   const [loading, setLoading] = useState(false);
@@ -76,6 +81,19 @@ export function useProducts() {
     }
   };
 
+  const deleteImage = async (url: string): Promise<void> => {
+    setLoading(true);
+    try {
+      const storageRef = ref(storage, url);
+      await deleteObject(storageRef);
+      setMessage("Imagen eliminada correctamente");
+      setLoading(false);
+    } catch (e) {
+      console.error("Error deleting image: ", e);
+      setLoading(false);
+    }
+  };
+
   return {
     addProduct,
     editProduct,
@@ -83,5 +101,6 @@ export function useProducts() {
     loading,
     message,
     uploadImage,
+    deleteImage,
   };
 }
