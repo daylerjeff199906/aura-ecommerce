@@ -5,6 +5,7 @@ import { UploadImage } from "@/components";
 import { Button, Input, Spinner } from "@nextui-org/react";
 import { useFilterFromUrl, useDataSlider, useSliders } from "@/hooks";
 import { IconCircleCheck } from "@tabler/icons-react";
+import { useFunctionsSliders } from "@/providers";
 
 export const FrmSlider = () => {
   const { getParams, updateFilter } = useFilterFromUrl();

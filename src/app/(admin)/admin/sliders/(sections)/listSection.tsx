@@ -2,7 +2,8 @@
 "use client";
 import { useEffect } from "react";
 import { TableAdmin } from "@/components";
-import { useDataSlider } from "@/hooks";
+// import { useDataSlider } from "@/hooks";
+import { useFunctionsSliders } from "@/providers";
 
 const columns = [
   {
@@ -39,12 +40,8 @@ const rows = [
 ];
 
 export const ListSection = () => {
-  const { getSlider, sliders } = useDataSlider();
+  const { sliders } = useFunctionsSliders();
   // const { editProduct } = useProducts();
-
-  useEffect(() => {
-    getSlider();
-  }, []);
 
   // const changeState = async (id: string, value: boolean) => {
   //   await editProduct(id, { isActive: value });

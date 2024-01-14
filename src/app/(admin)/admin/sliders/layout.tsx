@@ -1,3 +1,6 @@
+"use client";
+import { SliderProvider } from "@/providers";
+
 export default function LayoutSliders({
   children,
 }: {
@@ -5,7 +8,7 @@ export default function LayoutSliders({
 }) {
   return (
     <>
-      <div>{children}</div>
+      <SliderProvider>{children}</SliderProvider>
     </>
   );
 }
