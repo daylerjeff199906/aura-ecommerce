@@ -47,7 +47,7 @@ export const TableAdmin = ({
     isActive: "",
   });
 
-  const linkHref = isExternalUrl ? `?edit` : `/admin/${url_base}/edit`;
+  const linkHref = isExternalUrl ? `?edit` : `/admin/${url_base}/edit?id`;
 
   return (
     <>
@@ -73,7 +73,7 @@ export const TableAdmin = ({
                         variant="light"
                         color="success"
                         as={Link}
-                        href={`${linkHref}?id=${item.key}`}
+                        href={`${linkHref}=${item.key}`}
                       >
                         <IconEdit />
                       </Button>
