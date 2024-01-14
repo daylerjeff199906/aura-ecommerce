@@ -12,11 +12,12 @@ import { ICategory } from "@/types";
 
 const convertDataToICategory = (data: DocumentData[]) => {
   return data?.map((category) => {
-    const { name, image } = category;
+    const { name, image, isActive } = category;
     const id = category?.id;
     return {
       id: id,
       value: id,
+      isActive,
       name,
       image,
     };
@@ -24,11 +25,12 @@ const convertDataToICategory = (data: DocumentData[]) => {
 };
 
 const convertDataToICategoryById = (data: DocumentData) => {
-  const { name, image } = data;
+  const { name, image, isActive } = data;
   const id = data?.id;
   return {
     id: id,
     value: id,
+    isActive,
     name,
     image,
   };
