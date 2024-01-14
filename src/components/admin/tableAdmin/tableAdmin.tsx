@@ -22,6 +22,7 @@ import Link from "next/link";
 
 interface IProps {
   url_base?: string;
+  isExternalUrl?: boolean;
   handleAction?: (id: string, state: boolean) => void;
   columns: {
     key: string;
@@ -30,7 +31,6 @@ interface IProps {
   rows: {
     key: string;
     [key: string]: string | React.ReactNode;
-    showImage?: boolean;
   }[];
 }
 
@@ -38,6 +38,7 @@ export const TableAdmin = ({
   columns,
   rows,
   url_base,
+  isExternalUrl,
   handleAction,
 }: IProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -45,6 +46,8 @@ export const TableAdmin = ({
     id: "",
     isActive: "",
   });
+
+  const linkHref = isExternalUrl ? `?edit` : `/admin/${url_base}/edit?id`;
 
   return (
     <>
@@ -70,7 +73,7 @@ export const TableAdmin = ({
                         variant="light"
                         color="success"
                         as={Link}
-                        href={`/admin/${url_base}/edit?id=${item.key}`}
+                        href={`${linkHref}=${item.key}`}
                       >
                         <IconEdit />
                       </Button>

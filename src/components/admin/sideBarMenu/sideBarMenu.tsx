@@ -5,6 +5,7 @@ import {
   IconLayoutDashboard,
   IconShoppingBag,
   IconCategory2,
+  IconCarouselHorizontal,
 } from "@tabler/icons-react";
 
 const itemsMenu = [
@@ -50,6 +51,13 @@ const itemsMenu = [
         url: "/admin/categorias/create",
       },
     ],
+  },
+  {
+    id: "carousel",
+    nameOption: "Carousel",
+    hrefLink: "/admin/sliders",
+    icon: <IconCarouselHorizontal />,
+    subItems: [],
   },
 ];
 

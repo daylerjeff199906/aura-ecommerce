@@ -26,7 +26,7 @@ export default function PageProduct({ params: { slug } }: props) {
   return (
     <>
       <h1 className="text-xl font-medium">Productos {slug}</h1>
-      <div className="p-4 block sm:flex gap-4">
+      <div className="sm:p-4 block sm:flex gap-4">
         <FrmProduct dataProduct={product} />
         {id && <UploadImageSection data={product} />}
       </div>

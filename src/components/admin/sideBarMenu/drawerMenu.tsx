@@ -5,15 +5,14 @@ import {
   Accordion,
   AccordionItem,
 } from "@nextui-org/react";
-import { IconX, IconShoppingCart } from "@tabler/icons-react";
 
 import {
+  IconX,
   IconLayoutDashboard,
   IconShoppingBag,
   IconCategory2,
+  IconCarouselHorizontal,
 } from "@tabler/icons-react";
-
-import { IProducts } from "@/types";
 
 const itemsMenu = [
   {
@@ -58,6 +57,13 @@ const itemsMenu = [
         url: "/admin/categorias/create",
       },
     ],
+  },
+  {
+    id: "carousel",
+    nameOption: "Carousel",
+    hrefLink: "/admin/sliders",
+    icon: <IconCarouselHorizontal />,
+    subItems: [],
   },
 ];
 
